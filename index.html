@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutts & Meows - Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+
+	<style>
+
+		@media (max-width: 920px){
+			#image{
+				max-width: 70%;
+			}
+			.text-container h1, .text-container h2 {
+                font-size: 16px;
+            }
+		}
+
+		@media (max-width: 750px){
+			#image{
+				max-width: 50%;
+			}
+			.text-container h1, .text-container h2 {
+                font-size: 12px;
+            }
+
+		}
+
+	</style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+			<a href="adopt.html"> Adopt</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </ul>
+    </nav>
+
+	<div class="slideshow-container" id="slideshow">
+		<div class="slideshow-container-item">
+			<img id="image" src="images/mm1.jpg" alt="Image Not Found">
+		</div>
+	
+		<div class="slideshow-container-item">
+			<div class="text-container">
+				<h1>MUTTS & MEOWS</h1>
+				<h2>"Bring home your new best friend!"</h2>
+				<a href="contact-us.html" class="contact-button">Contact Us</a>
+			</div>
+		</div>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+		$(document).ready(function() {
+			var images = ["images/mm1.jpg", "images/mm2.jpg", "images/mm3.jpg", "images/mm4.jpg", "images/mm5.jpg", "images/mm6.jpg", "images/mm7.jpg", "images/mm8.jpg", "images/mm9.jpg", "images/mm10.jpg"];
+			var currImage = 0;
+			var interval; 
+	
+			function start() {
+            interval = setInterval(function() {
+                $('#image').fadeOut(1000, function() {
+                    $(this).attr("src", images[currImage]);
+                    $(this).fadeIn(1000);
+                    currImage = (currImage + 1) % images.length;
+                });
+            }, 3000);
+        }
+
+        function stop() {
+            clearInterval(interval);
+        }
+        start();
+   		});
+	</script>
+
+
+	<div class="about-us-container">
+		<div class="about-us-3-boxes">
+			<div class="about-us-box">
+				<img class="about-us-img" src="images/handshake.png" alt="Handshake">
+				<h2>Our Love for Pets</h2>
+				<p>We are passionate about pets and their well-being. Our journey began with a simple love for animals and a desire to make a difference in their lives.</p>
+			</div>
+
+			<div class="about-us-box">
+				<img class="about-us-img" src="images/group.png" alt="Group">
+				<h2>About Our Team</h2>
+				<p>Our dedicated team of animal lovers works tirelessly to provide the best care and services for your pets! We are committed to their happiness and health.</p>
+			</div>
+
+			<div class="about-us-box">
+				<img class="about-us-img" src="images/medal.png" alt="Medal">
+				<h2>Our Achievements</h2>
+				<p>Through our unwavering dedication, we've achieved recognition for our outstanding services and contributions to the pet community. We take pride in our accomplishments and continue to strive for excellence.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="mission-container">
+		<div class="mission-items">
+			<img class="mission-img" src="images/logo.jpg" alt="Mission Image">
+		</div>
+
+		<div class="mission-items">
+			<h2>Mission Statement:</h2>
+			<p>At Mutts & Meows, our mission is to provide the best care and support for your furry companions. We are dedicated to ensuring the well-being, happiness, and health of every pet we serve.</p>
+		</div>
+	</div>
+
+	
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head> <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Mutts and Meows </title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        h1 {
+          text-align: center;
+          font-size: 2.5em;
+        }
+        .review {
+            width: 70%;
+            display: flex;
+            background-color: #bdbdbd;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            flex-wrap: wrap;
+            border-radius: 10px;
+        }
+        .text {
+            padding: 20px;
+            display: inline-block;
+            width: 60%;
+            margin: auto;
+            font-size: 115%;
+        }
+        .image {
+            display: inline-block;
+            width: 30%; 
+            height: 350px;
+            min-width: 200px;
+            margin: auto;
+            padding: auto;
+        }
+        @media (max-width: 800px) { 
+            .image {
+                width: 80%;
+                height: 350px;
+                margin: auto;
+            }
+            .text {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </ul>
+    </nav>
+    </br>
+    </br>
+    </br>
+
+    <h1> Read Stories from Our Community</h1>
+
+    <div class = "review"> 
+        <div class = "image"> <img src="review1image.jpg" style="width: 100%; max-width: 200px" title = "Chris and His Dogs" > 
+        </div>
+        <div class="text"> 
+            “I adopted from Mutts and Meows a year ago and I couldn’t be happier. The adoption process was very straightforward and the staff at Mutts and Meows was extremely helpful. It took a week for all of the paperwork to go through and now our family has expanded to include Nala.” - Chris
+        </div>
+    </div>
+    </br>
+    </br>
+    <div class = "review" style = "flex-wrap: wrap-reverse;"> 
+        <div class="text"> 
+            “Older dogs sometimes have a harder time getting adopted but Mutts and Meows took a chance on Chewy and my family is forever grateful. I was able to get everything I needed to make my new best friend comfortable and Mutts and Meows even made sure I was set up with her medical records. Their adoptions are very streamlined and their pet products are high quality” - Sydney
+        </div>
+        <div class = "image"> <img src="review2.jpg" style="width: 100%; max-width: 300px; margin: 60px auto; min-width: 250px;" title = "Sydney & Dog" > 
+        </div>
+    </div>
+    </br>
+    </br>
+    <div class = "review"> 
+        <div class = "image"> <img src="review3.jpg" style="width: 100%; max-width: 200px" title = "Sarah & Puppy" > 
+        </div>
+        <div class="text"> 
+            “I’ve always wanted a Bernese Mountain Dog puppy but have had a hard time bringing a trusted adoption agency. Mutts and Meows made me feel supported through the adoption process and ensured I was well informed. I would highly recommend their adoption services to anyone.” - Sarah
+        </div>
+    </div>
+    </br>
+    </br>
+
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
+</body>
+</html>

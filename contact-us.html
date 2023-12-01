@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutts & Meows - Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+
+    .contact-container{
+        max-width: 400px;
+        margin: 125px auto;
+        padding: 20px;
+        background-color: lightgray;
+        border-radius: 10px;
+    }
+
+    h1{
+        text-align: center;
+        color:black;
+    }
+
+    table{
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    table td{
+        padding: 10px;
+    }
+
+    table label{
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    button{
+        background-color: rgb(27, 122, 255);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border-style: none;
+    }
+
+    button:hover{
+        background-color: rgb(0, 74, 171);
+        text-decoration: underline;
+    }
+
+
+</style>
+</head>
+<script>
+    function validateForm() {
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value;
+
+        if (firstName.trim() == "") {
+            alert('First Name is required');
+            return false;
+        }
+
+        if (lastName.trim() == "") {
+            alert('Last Name is required');
+            return false;
+        }
+
+        if (email.trim() == "") {
+            alert('Please enter a valid email address');
+            return false;
+        }
+
+        if (subject.trim() == "") {
+            alert('Subject is required');
+            return false;
+        }
+
+        if (message.trim() == "") {
+            alert('Message is required');
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+<body>
+    <nav>
+        <ul>
+            <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </ul>
+    </nav>
+
+
+    <div class="contact-container">
+        <h1>Contact Us!</h1>
+    
+        <form action="#" onsubmit="return validateForm()">
+            <table>
+                <tr>
+                    <td><label for="firstName">First Name:</label></td>
+                    <td><input type="text" id="firstName" name="firstName"></td>
+                </tr>
+                <tr>
+                    <td><label for="lastName">Last Name:</label></td>
+                    <td><input type="text" id="lastName" name="lastName"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="subject">Subject:</label></td>
+                    <td><input type="text" id="subject" name="subject"> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="message">Message:</label><br>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
+
+</body>
+</html>

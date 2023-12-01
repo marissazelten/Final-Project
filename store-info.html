@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutts & Meows - Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .store-info-container{
+            margin-top: 30px;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .info, .map{
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .info ul{
+            list-style: none;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info ul li{
+            font-size: 16px;
+            margin: 10px 0;
+            max-width: 280px;
+            padding: 5px;
+            text-align: center;
+            display: block;
+        }
+
+        .info ul li:hover{
+            font-size: 16px;
+            margin: 10px 0;
+            background-color: rgb(252, 89, 255);
+        }
+
+        @media (max-width: 768px) {
+
+            .info ul li {
+                font-size: 18px;
+            }
+
+            .map{
+                display: none;
+            }
+        }
+
+    
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </ul>
+    </nav>
+
+
+    <div class="store-info-container">
+        <div class="info">
+            <h1>Store Info</h1>
+            <h2>Address:</h2>
+            <p>123 Main Street</p>
+            <p>Boston, Massachusetts 12345</p>
+
+            <h2 style="margin-bottom: 0px;">Store Hours:</h2>
+            <ul style="margin-top: 0px;">
+                <li>Monday: 8:00 AM - 9:00 PM</li>
+                <li>Tuesday: 8:00 AM - 9:00 PM</li>
+                <li>Wednesday: 8:00 AM - 9:00 PM</li>
+                <li>Thursday: 8:00 AM - 9:00 PM</li>
+                <li>Friday: 8:00 AM - 9:00 PM</li>
+                <li>Saturday: 10:00 AM - 6:00 PM</li>
+                <li>Sunday: 10:00 AM - 6:00 PM</li>
+            </ul>
+        </div>
+
+        <div class="map">
+            <h2>Location on Map:</h2>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5892.325825420865!2d-71.12607275401636!3d42.402975807165504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e376dfd6512c9b%3A0xef47fabcdf751b30!2sTufts%2C%20Somerville%2C%20MA!5e0!3m2!1sen!2sus!4v1698550002005!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
+</body>
+</html>

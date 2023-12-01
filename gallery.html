@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutts & Meows - Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav>
+    <ul>
+        <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+        <a href="index.html"> Home</a>
+        <a href="About.html"> About Us</a>
+        <a href="reviews.html"> Testimonials</a>
+        <a href="gallery.html"> Gallery</a>
+        <a href="products.html"> Products</a>
+        <a href="store-info.html"> Store Info</a>
+        <a href="contact-us.html"> Contact Us</a>
+    </ul>
+</nav>
+
+
+<head>
+  
+<style>
+pet0, pet1, pet2, pet3, pet4, pet5, pet6, pet7, pet8 {
+  background-color: lightgrey;
+  width: 225px;
+  height: 400px;
+  border: 15px solid pink;
+  padding: 50px;
+  margin: 20px;
+  font-size: 15px;
+  float: left;
+  text-align: center;
+
+}
+
+h1 {
+  text-align: center;
+}
+img {  
+max-width: 85%;  
+height: auto;  
+}  
+
+</style>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+
+</br>
+</br>
+</br>
+</br></br>
+</br>
+<h1>Adopt your new best friend!</h1> <h1 style="text-align:center;" > </h1>
+
+
+<pet0>  <img src="images/bagel1.jpg"></pet0>
+<pet1> <img src="images/mm1.jpg"></pet1>
+<pet2>  <img src="images/mm2.jpg"></pet2>
+<pet3>  <img src="images/mm3.jpg"></pet3>
+<pet4>  <img src="images/mm4.jpg"></pet4>
+<pet5>  <img src="images/mm5.jpg"></pet5>
+<pet6>  <img src="images/mm6.jpg"></pet6>
+<pet7>  <img src="images/mm7.jpg"></pet7>
+<pet8>  <img src="images/mm1.jpg"></pet8>
+
+</br> 
+
+
+</head>
+
+<body>
+
+<script>
+let pets = [
+  {
+    "name": "<h2> Bagel </h2>",
+    "breed": "Poodle",
+    "description": "Bagel is a happy and playful poodle looking for his furrever home!",
+  },
+  {
+    "name": "<h2>Donny</h2>",
+    "breed": "Husky",
+    "description": "Donny is a high energy husky, who loves to meet other kids and play with kids!",
+  },
+    {
+    "name": "<h2>Pickle</h2>",
+    "breed": "Mixed Breed Cat",
+    "description": "If you're looking for a lap cat, pickle is your girl! She's always down for a cuddle.",
+  },
+  {
+    "name": "<h2>Annie</h2>",
+    "breed": "Chocolate Lab",
+    "description": "Annie is so excited to find her new family, she would be the perfect addition to a family with kids!",
+  },
+  {
+    "name": "<h2>Abby</h2>",
+    "breed": "Tabby Cat",
+    "description": "Abby is ready to join a small family that will her the love and treats she deserves!",
+  },
+    {
+    "name": "<h2>Lucky</h2>",
+    "breed": "Bulldog",
+    "description": "Lucky will be the perfect new addition to your family! She loves, treats, taking walks and playing fetch.",
+  },
+  {
+    "name": "<h2>Connie</h2>",
+    "breed": "Tiger Cat",
+    "description": "Connie is a sweatheart ready to move in with a family that will treate her to lots of love and salmon.",
+  },
+  {
+    "name": "<h2>Harper</h2>",
+    "breed": "Mixed Breed",
+    "description": "Harper is a young, high energy pup ready to explore the world!",
+  },
+  {
+    "name": "<h2>Mister Whiskers</h2>",
+    "breed": "Calico Cat",
+    "description": "Mister Whiskers is a handsome, older man looking to settle down with someone who loves to stay in, watch Gilmore Girls and eat Salmon.",
+  },
+]
+
+for(let i = 0; i < 9; i++) {
+
+    const div = document.querySelector("pet" + i);    
+
+  div.innerHTML += pets[i].name;
+  div.innerHTML += "</br>";
+  div.innerHTML += pets[i].breed;
+  div.innerHTML += "</br>";
+  div.innerHTML += pets[i].description;
+  div.innerHTML += "</br>";
+}
+</script>
+
+
+<footer>
+  <p>&copy; 2023 Mutts & Meows</p>
+</footer>
+
+</body>

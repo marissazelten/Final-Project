@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutts & Meows - Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .adoption-container {
+            max-width: 450px;
+            margin: 125px auto;
+            padding: 20px;
+            background-color: lightgray;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table td {
+            padding: 10px;
+        }
+
+        table label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: rgb(27, 122, 255);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border-style: none;
+        }
+
+        button:hover {
+            background-color: rgb(0, 74, 171);
+            text-decoration: underline;
+        }
+
+        .dogInfoContainer{
+            background-color: rgb(194, 107, 181);; 
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .dogInfoContainer img{
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .dogInfoContainer td,p,h3,h6{
+            font-size: 18px;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </ul>
+    </nav>
+
+
+    <div class="adoption-container">
+        <h1>Adopt a Dog!</h1>
+
+        <!-- onsubmit="return validateANDfetch()" -->
+        <form action="#">
+            <table>
+                <tr>
+                    <td><label for="firstName">First Name:</label></td>
+                    <td><input type="text" id="firstName" name="firstName"></td>
+                </tr>
+                <tr>
+                    <td><label for="lastName">Last Name:</label></td>
+                    <td><input type="text" id="lastName" name="lastName"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td><label for="breed">Dog Breed:</label></td>
+                    <td><input type="text" id="breed" name="breed"></td>
+
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit" onclick="validateANDfetch()">Submit Adoption Request</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <div class="dogInfoContainer" id="dogInfoContainer">
+            <!-- dog info goes here -->
+        </div>
+
+    </div>
+
+    
+
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
+</body>
+
+<script>
+    function validateANDfetch(){
+        event.preventDefault();
+        var breed = document.getElementById('breed').value;
+
+        if(validateForm()){
+            fetchDogInfo(breed);
+        } else{
+            return false;
+        }
+    }
+
+    function validateForm(){
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var email = document.getElementById('email').value;
+        var breed = document.getElementById('breed').value;
+
+        if (firstName.trim() == ""){
+            alert('First Name is required');
+            return false;
+        }
+
+        if (lastName.trim() == ""){
+            alert("Last Name is required");
+            return false;
+        }
+
+        if (email.trim() == ""){
+            alert("Please enter a valid email address");
+            return false;
+        }
+
+        if (breed.trim() == ""){
+            alert("Please select a dog breed");
+            return false;
+        }
+
+        return true; 
+    }
+
+    function fetchDogInfo(breed){
+        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
+        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=' + breed.toLowerCase();
+        
+       
+        //from Dogs API Documentation
+        $.ajax({
+            method: 'GET',
+            url: apiUrl,
+            headers: { 'X-Api-Key': apiKey},
+            contentType: 'application/json',
+            success: function(result) {
+                updateDogInfo(result);
+
+                console.log("here is the data from Dogs API");
+                console.log(result);
+            },
+            error: function ajaxError(jqXHR) {
+                console.error('Error: ', jqXHR.responseText);
+            }
+        });
+    }
+
+    function updateDogInfo(data) {
+        var dogInfoContainer = document.getElementById('dogInfoContainer');
+        dogInfoContainer.innerHTML = "";
+
+        //display dog image
+        var dogImg = document.createElement('img');
+        dogImg.src = data[0].image_link;
+        console.log(data[0].image_link);
+        
+        dogImg.alt = 'Dog Image';
+        dogInfoContainer.appendChild(dogImg);
+
+        //display all other info
+        var infoTable = document.createElement('table');
+        infoTable.innerHTML = `
+
+            <h2> ${data[0].name} Information: </h2>     
+
+            <tr>
+                <td> <h3> General Information: </h3> </td>
+                <td> <h3> 1(worst) - 5(best) <h3> </td> 
+            </tr>
+
+            <tr>
+                <td>Good with Children:</td>
+                <td>${data[0].good_with_children}</td>
+            </tr>
+            <tr>
+                <td>Good with Other Dogs:</td>
+                <td>${data[0].good_with_other_dogs}</td>
+            </tr>
+            <tr>
+                <td>Shedding:</td>
+                <td>${data[0].shedding}</td>
+            </tr>
+            <tr>
+                <td>Grooming:</td>
+                <td>${data[0].grooming}</td>
+            </tr>
+
+            <tr>
+                <td>Drooling:</td>
+                <td>${data[0].drooling}</td>
+            </tr>
+
+            <tr>
+                <td>Coat length:</td>
+                <td>${data[0].coat_length}</td>
+            </tr>
+
+            <tr>
+                <td>Good with strangers:</td>
+                <td>${data[0].good_with_strangers}</td>
+            </tr>
+
+            <tr>
+                <td>Playfulness:</td>
+                <td>${data[0].playfulness}</td>
+            </tr>
+
+            <tr>
+                <td>Protectiveness:</td>
+                <td>${data[0].protectiveness}</td>
+            </tr>
+
+            <tr>
+                <td>Trainability:</td>
+                <td>${data[0].trainability}</td>
+            </tr>
+
+            <tr>
+                <td>Energy:</td>
+                <td>${data[0].energy}</td>
+            </tr>
+
+            <tr>
+                <td>Barking:</td>
+                <td>${data[0].barking}</td>
+            </tr>
+
+            <tr>
+                <td> <h3> Physical Characteristics: </h3> </td>
+            </tr>
+
+            <tr>
+                <td>Life Expectancy:</td>
+                <td>${data[0].max_life_expectancy} years</td>
+            </tr>
+
+            <tr>
+                <td>Height:</td>
+                <td>${data[0].max_height_male} inches</td>
+            </tr>
+
+            <tr>
+                <td>Weight:</td>
+                <td>${data[0].max_weight_male} lbs</td>
+            </tr>
+
+
+        `;
+
+        dogInfoContainer.appendChild(infoTable);
+
+        
+
+    // "image_link": "https://api-ninjas.com/images/dogs/labrador_retriever.jpg",
+    // "good_with_children": 5,
+    // "good_with_other_dogs": 5,
+    // "shedding": 4,
+    // "grooming": 2,
+    // "drooling": 2,
+    // "coat_length": 1,
+    // "good_with_strangers": 5,
+    // "playfulness": 5,
+    // "protectiveness": 3,
+    // "trainability": 5,
+    // "energy": 5,
+    // "barking": 3,
+    // "min_life_expectancy": 10,
+    // "max_life_expectancy": 12,
+    // "max_height_male": 24.5,
+    // "max_height_female": 24.5,
+    // "max_weight_male": 80,
+    // "max_weight_female": 70,
+    // "min_height_male": 22.5,
+    // "min_height_female": 22.5,
+    // "min_weight_male": 65,
+    // "min_weight_female": 55,
+    // "name": "Labrador Retriever"
+    }
+</script>
+
+</html>
