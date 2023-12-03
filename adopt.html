@@ -73,6 +73,14 @@
             justify-content: center;
             padding: 5px 1px;
         }
+        #dogInfoContainer:empty{
+            display: none;
+        }
+
+        ul{
+            list-style: none;
+            /* font-weight: lighter; */
+        }
     </style>
 </head>
 
@@ -92,31 +100,64 @@
 
 
     <div class="adoption-container">
-        <h1>Adopt a Dog!</h1>
-
+        <h1>Find your perfect dog!</h1>
+        <p>Select the most important qualities you wish to have in your dog</p>
+        
         <!-- onsubmit="return validateANDfetch()" -->
         <form action="#">
             <table>
-                <tr>
-                    <td><label for="firstName">First Name:</label></td>
-                    <td><input type="text" id="firstName" name="firstName"></td>
-                </tr>
-                <tr>
-                    <td><label for="lastName">Last Name:</label></td>
-                    <td><input type="text" id="lastName" name="lastName"></td>
-                </tr>
-                <tr>
-                    <td><label for="email">Email:</label></td>
-                    <td><input type="email" id="email" name="email"></td>
-                </tr>
-                <tr>
-                    <td><label for="breed">Dog Breed:</label></td>
-                    <td><input type="text" id="breed" name="breed"></td>
 
+                <!-- <tr>
+                    <td><label for="good_with_children">good_with_children:</label></td>
+                    <td><input type="checkbox" id="good_with_children" name="good_with_children"></td>
                 </tr>
+                <tr>
+                    <td><label for="good_with_other_dogs">good_with_other_dogs:</label></td>
+                    <td><input type="checkbox" id="good_with_other_dogs" name="good_with_other_dogs"></td>
+                </tr> -->
+                <tr>
+                    <td><label for="shedding">shedding:</label></td>
+                    <td><input type="checkbox" id="shedding" name="shedding"></td>
+                </tr>
+                <!-- <tr>
+                    <td><label for="grooming">grooming:</label></td>
+                    <td><input type="checkbox" id="grooming" name="grooming"></td>
+                </tr>
+                <tr>
+                    <td><label for="drooling">drooling:</label></td>
+                    <td><input type="checkbox" id="drooling" name="drooling"></td>
+                </tr>
+                <tr>
+                    <td><label for="coat_length">coat_length:</label></td>
+                    <td><input type="checkbox" id="coat_length" name="coat_length"></td>
+                </tr>
+                <tr>
+                    <td><label for="good_with_strangers">good_with_strangers:</label></td>
+                    <td><input type="checkbox" id="good_with_strangers" name="good_with_strangers"></td>
+                </tr> 
+                <tr>
+                    <td><label for="playfulness">playfulness:</label></td>
+                    <td><input type="checkbox" id="playfulness" name="playfulness"></td>
+                </tr>         -->
+                <tr>
+                    <td><label for="protectiveness">protectiveness:</label></td>
+                    <td><input type="checkbox" id="protectiveness" name="protectiveness"></td>
+                </tr>        
+                <tr>
+                    <td><label for="trainability">trainability:</label></td>
+                    <td><input type="checkbox" id="trainability" name="trainability"></td>
+                </tr>     
+                <tr>
+                    <td><label for="energy">energy:</label></td>
+                    <td><input type="checkbox" id="energy" name="energy"></td>
+                </tr>  
+                <tr>
+                    <td><label for="barking">barking:</label></td>
+                    <td><input type="checkbox" id="barking" name="barking"></td>
+                </tr>                    
                 <tr>
                     <td colspan="2">
-                        <button type="submit" onclick="validateANDfetch()">Submit Adoption Request</button>
+                        <button type="submit" onclick="validateANDfetch()">Find my perfect dog!</button>
                     </td>
                 </tr>
             </table>
@@ -136,62 +177,61 @@
 </body>
 
 <script>
-    function validateANDfetch(){
+
+    function validateANDfetch() {
         event.preventDefault();
-        var breed = document.getElementById('breed').value;
 
-        if(validateForm()){
-            fetchDogInfo(breed);
-        } else{
-            return false;
-        }
-    }
+        var checkedBoxes = [];
 
-    function validateForm(){
-        var firstName = document.getElementById('firstName').value;
-        var lastName = document.getElementById('lastName').value;
-        var email = document.getElementById('email').value;
-        var breed = document.getElementById('breed').value;
+        // Iterate through checkboxes and add to checkedBoxes array
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+            if(checkbox.checked){
+                console.log("checkbox is" + checkbox.id);
 
-        if (firstName.trim() == ""){
-            alert('First Name is required');
-            return false;
-        }
+                if(checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability"){
+                    checkedBoxes.push(checkbox.id+"=5");
+                    checkedBoxes.push(checkbox.id+"=4");
+                    // checkedBoxes.push(checkbox.id+"=3");
 
-        if (lastName.trim() == ""){
-            alert("Last Name is required");
-            return false;
-        }
 
-        if (email.trim() == ""){
-            alert("Please enter a valid email address");
-            return false;
-        }
+                } else if(checkbox.id == "shedding" || checkbox.id == "barking"){
+                    checkedBoxes.push(checkbox.id+"=1");
+                    checkedBoxes.push(checkbox.id+"=2");
+                    // checkedBoxes.push(checkbox.id+"=3");
 
-        if (breed.trim() == ""){
-            alert("Please select a dog breed");
-            return false;
-        }
 
-        return true; 
-    }
-
-    function fetchDogInfo(breed){
-        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
-        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?name=' + breed.toLowerCase();
-        
+                }
+            }
+        });
        
+        console.log("checked boxes are " + checkedBoxes);
+        if (checkedBoxes.length > 0) {
+                fetchDogInfo(checkedBoxes.join('&'));
+        } else {
+                alert('Please select at least one characteristic.');
+        }
+        
+    }
+
+    function fetchDogInfo(trait) {
+        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
+        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
+
+        console.log("url is:" + apiUrl);
+
+        
         //from Dogs API Documentation
         $.ajax({
             method: 'GET',
             url: apiUrl,
-            headers: { 'X-Api-Key': apiKey},
+            headers: { 'X-Api-Key': apiKey },
             contentType: 'application/json',
-            success: function(result) {
+            success: function (result) {
+                //update the page with relevent dogs
                 updateDogInfo(result);
-
                 console.log("here is the data from Dogs API");
                 console.log(result);
+
             },
             error: function ajaxError(jqXHR) {
                 console.error('Error: ', jqXHR.responseText);
@@ -203,132 +243,105 @@
         var dogInfoContainer = document.getElementById('dogInfoContainer');
         dogInfoContainer.innerHTML = "";
 
-        //display dog image
-        var dogImg = document.createElement('img');
-        dogImg.src = data[0].image_link;
-        console.log(data[0].image_link);
-        
-        dogImg.alt = 'Dog Image';
-        dogInfoContainer.appendChild(dogImg);
+        // Display dog information
+        data.forEach(function (dog) {
+            var dogItem = document.createElement('div');
+            dogItem.className = 'dogItem';
 
-        //display all other info
-        var infoTable = document.createElement('table');
-        infoTable.innerHTML = `
-
-            <h2> ${data[0].name} Information: </h2>     
-
-            <tr>
-                <td> <h3> General Information: </h3> </td>
-                <td> <h3> 1(worst) - 5(best) <h3> </td> 
-            </tr>
-
-            <tr>
-                <td>Good with Children:</td>
-                <td>${data[0].good_with_children}</td>
-            </tr>
-            <tr>
-                <td>Good with Other Dogs:</td>
-                <td>${data[0].good_with_other_dogs}</td>
-            </tr>
-            <tr>
-                <td>Shedding:</td>
-                <td>${data[0].shedding}</td>
-            </tr>
-            <tr>
-                <td>Grooming:</td>
-                <td>${data[0].grooming}</td>
-            </tr>
-
-            <tr>
-                <td>Drooling:</td>
-                <td>${data[0].drooling}</td>
-            </tr>
-
-            <tr>
-                <td>Coat length:</td>
-                <td>${data[0].coat_length}</td>
-            </tr>
-
-            <tr>
-                <td>Good with strangers:</td>
-                <td>${data[0].good_with_strangers}</td>
-            </tr>
-
-            <tr>
-                <td>Playfulness:</td>
-                <td>${data[0].playfulness}</td>
-            </tr>
-
-            <tr>
-                <td>Protectiveness:</td>
-                <td>${data[0].protectiveness}</td>
-            </tr>
-
-            <tr>
-                <td>Trainability:</td>
-                <td>${data[0].trainability}</td>
-            </tr>
-
-            <tr>
-                <td>Energy:</td>
-                <td>${data[0].energy}</td>
-            </tr>
-
-            <tr>
-                <td>Barking:</td>
-                <td>${data[0].barking}</td>
-            </tr>
-
-            <tr>
-                <td> <h3> Physical Characteristics: </h3> </td>
-            </tr>
-
-            <tr>
-                <td>Life Expectancy:</td>
-                <td>${data[0].max_life_expectancy} years</td>
-            </tr>
-
-            <tr>
-                <td>Height:</td>
-                <td>${data[0].max_height_male} inches</td>
-            </tr>
-
-            <tr>
-                <td>Weight:</td>
-                <td>${data[0].max_weight_male} lbs</td>
-            </tr>
+            var dogName = document.createElement('h2');
+            dogName.innerText = dog.name;
+            console.log("dog name is " + dog.name)
+            dogItem.append(dogName);
 
 
-        `;
+            // Display dog image
+            var dogImg = document.createElement('img');
+            dogImg.src = dog.image_link;
+            dogImg.alt = 'Dog Image';
+            dogItem.append(dogImg);
 
-        dogInfoContainer.appendChild(infoTable);
 
-        
+            // dogItem.append("Scale:")
 
-    // "image_link": "https://api-ninjas.com/images/dogs/labrador_retriever.jpg",
-    // "good_with_children": 5,
-    // "good_with_other_dogs": 5,
-    // "shedding": 4,
-    // "grooming": 2,
-    // "drooling": 2,
-    // "coat_length": 1,
-    // "good_with_strangers": 5,
-    // "playfulness": 5,
-    // "protectiveness": 3,
-    // "trainability": 5,
-    // "energy": 5,
-    // "barking": 3,
-    // "min_life_expectancy": 10,
-    // "max_life_expectancy": 12,
-    // "max_height_male": 24.5,
-    // "max_height_female": 24.5,
-    // "max_weight_male": 80,
-    // "max_weight_female": 70,
-    // "min_height_male": 22.5,
-    // "min_height_female": 22.5,
-    // "min_weight_male": 65,
-    // "min_weight_female": 55,
-    // "name": "Labrador Retriever"
+            var good_with_children = document.createElement('ul');
+            good_with_children.innerText = "Good with children: " + dog.good_with_children;
+            console.log("good w children " + dog.good_with_children);
+            dogItem.append(good_with_children);
+
+
+            var good_with_other_dogs = document.createElement('ul');
+            good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
+            console.log("good w dogs " + dog.good_with_other_dogs);
+            dogItem.append(good_with_other_dogs);
+
+
+            var grooming = document.createElement('ul');
+            grooming.innerText = "Grooming: " + dog.grooming;
+            console.log("grooming " + dog.grooming);
+            dogItem.append(grooming);
+
+            var drooling = document.createElement('ul');
+            drooling.innerText = "Drooling: " + dog.drooling;
+            console.log("drooling " + dog.drooling);
+            dogItem.append(drooling);
+
+            var coat_length = document.createElement('ul');
+            coat_length.innerText = "Coat length: " + dog.coat_length;
+            console.log("coat_length " + dog.coat_length);
+            dogItem.append(coat_length);
+
+            var good_with_strangers = document.createElement('ul');
+            good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
+            console.log("good_with_strangers " + dog.good_with_strangers);
+            dogItem.append(good_with_strangers);
+
+            var playfulness = document.createElement('ul');
+            playfulness.innerText = "Playfulness: " + dog.playfulness;
+            console.log("playfulness " + dog.playfulness);
+            dogItem.append(playfulness);
+
+            var lifeExpectancy = document.createElement('ul');
+            var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
+            lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
+            console.log("avg life expectancy " + avgLifeExpectancy);
+            dogItem.append(lifeExpectancy);
+
+            var height = document.createElement('ul');
+            var avgHeight = ((dog.min_height_male) + (dog.min_height_female) + (dog.max_height_male) + (dog.max_height_female))/4;
+            height.innerText = "Average Height : " + avgHeight + " inches";
+            console.log("avg height " + avgHeight);
+            dogItem.append(height);
+
+
+            var weight = document.createElement('ul');
+            var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
+            weight.innerText = "Average Weight : " + avgWeight + " pounds";
+            console.log("avg weight " + avgWeight);
+            dogItem.append(weight);
+            
+            dogItem.innerHTML += '<hr>';
+
+            // var traitList = document.createElement('ul');
+
+            // // Iterate through each characteristic in the dog object
+            // for (var key in dog) {
+
+            //     if (key != "image_link" && key != "name" && dog.hasOwnProperty(key)) {
+            //         // Create list item for each characteristic
+            //         var traitListItem = document.createElement('li');
+            //         // Display characteristic as 'Key: Value'
+            //         traitListItem.textContent = `${key}: ${dog[key]}`;
+            //         // Append the characteristic item to the list
+            //         traitList.appendChild(traitListItem);
+            //     }
+            // }
+
+
+            // dogItem.appendChild(traitList);
+
+            // Append dog card to dogInfoContainer
+            dogInfoContainer.appendChild(dogItem);
+        });
     }
 </script>
 
