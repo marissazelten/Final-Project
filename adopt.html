@@ -185,7 +185,7 @@
 
         var checkedBoxes = [];
 
-        // Iterate through checkboxes and add to checkedBoxes array
+        //iterates through checkboxes and adds to checkedBoxes array
         document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
             if(checkbox.checked){
                 console.log("checkbox is" + checkbox.id);
@@ -195,12 +195,10 @@
                     checkedBoxes.push(checkbox.id+"=4");
                     // checkedBoxes.push(checkbox.id+"=3");
 
-
                 } else if(checkbox.id == "shedding" || checkbox.id == "barking"){
                     checkedBoxes.push(checkbox.id+"=1");
                     checkedBoxes.push(checkbox.id+"=2");
                     // checkedBoxes.push(checkbox.id+"=3");
-
 
                 }
             }
@@ -329,7 +327,7 @@
             //add dog card to dogInfoContainer
             dogInfoContainer.appendChild(dogItem);
         });
-        
+
         console.log("matched breeds are " + matchedBreeds)
 
     }
