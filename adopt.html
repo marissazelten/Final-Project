@@ -182,6 +182,7 @@
         event.preventDefault();
 
         var checkedBoxes = [];
+        var matchedBreeds = [];
 
         // Iterate through checkboxes and add to checkedBoxes array
         document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
@@ -243,8 +244,8 @@
         var dogInfoContainer = document.getElementById('dogInfoContainer');
         dogInfoContainer.innerHTML = "";
 
-        // Display dog information
-        data.forEach(function (dog) {
+        //display dog info
+        data.forEach(function(dog){
             var dogItem = document.createElement('div');
             dogItem.className = 'dogItem';
 
@@ -254,14 +255,14 @@
             dogItem.append(dogName);
 
 
-            // Display dog image
+            //display dog image
             var dogImg = document.createElement('img');
             dogImg.src = dog.image_link;
             dogImg.alt = 'Dog Image';
             dogItem.append(dogImg);
 
 
-            // dogItem.append("Scale:")
+            //dogItem.append("Scale:")
 
             var good_with_children = document.createElement('ul');
             good_with_children.innerText = "Good with children: " + dog.good_with_children;
@@ -321,25 +322,8 @@
             
             dogItem.innerHTML += '<hr>';
 
-            // var traitList = document.createElement('ul');
 
-            // // Iterate through each characteristic in the dog object
-            // for (var key in dog) {
-
-            //     if (key != "image_link" && key != "name" && dog.hasOwnProperty(key)) {
-            //         // Create list item for each characteristic
-            //         var traitListItem = document.createElement('li');
-            //         // Display characteristic as 'Key: Value'
-            //         traitListItem.textContent = `${key}: ${dog[key]}`;
-            //         // Append the characteristic item to the list
-            //         traitList.appendChild(traitListItem);
-            //     }
-            // }
-
-
-            // dogItem.appendChild(traitList);
-
-            // Append dog card to dogInfoContainer
+            //add dog card to dogInfoContainer
             dogInfoContainer.appendChild(dogItem);
         });
     }
