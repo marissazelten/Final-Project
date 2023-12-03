@@ -178,11 +178,12 @@
 
 <script>
 
+    var matchedBreeds = [];
+
     function validateANDfetch() {
         event.preventDefault();
 
         var checkedBoxes = [];
-        var matchedBreeds = [];
 
         // Iterate through checkboxes and add to checkedBoxes array
         document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
@@ -323,10 +324,16 @@
             dogItem.innerHTML += '<hr>';
 
 
+            matchedBreeds.push(dog.name);
+
             //add dog card to dogInfoContainer
             dogInfoContainer.appendChild(dogItem);
         });
+        
+        console.log("matched breeds are " + matchedBreeds)
+
     }
+
 </script>
 
 </html>
