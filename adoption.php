@@ -72,7 +72,7 @@ if ($results->num_rows > 0) {
 ?>
 <?php
         for ($x = 0; $x <= breeds.length(); $x++) {
-            if($row['Breed'] LIKE '%breeds[x]%') {
+            if(($row['Breed'] LIKE '%breeds[x]%') and ($row['Status'] == '%available%')) {
                 <div class='dogs'>
                     <p><?php echo '<img src="' . $row['Image'] . '" alt="Image" style="max-width: 100px; height: auto;">'; ?></p>
                     <p>Name: <?php echo $row['Name']; ?></p>
