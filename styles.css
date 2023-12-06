@@ -54,7 +54,7 @@ footer{
     align-items: center;
     margin: 100px;
     text-align: left;
-    height: 700px;
+    height: 800px;
     background-color: pink;
     border-radius: 20px;
 
@@ -65,6 +65,7 @@ footer{
     flex: 1;
     align-items: center;
     justify-content: space-between;
+    height: 800px;
 }
 
 #image{
@@ -211,6 +212,13 @@ table img{
         margin: 0px;
     }
 
+    .slideshow-container{
+    height: 340px;
+    }
+
+.slideshow-container-item{
+    height: 340px;
+
     nav{
         height: 30px;
     }
@@ -243,8 +251,14 @@ table img{
         max-width: 25px;
         height: auto;
     }
-}
+     .slideshow-container{
+    height: 266px;
+    }
 
+    .slideshow-container-item{
+    height: 266px;
+    }
+}
 @media (max-width: 580px){
 
     body{
@@ -260,5 +274,12 @@ table img{
         vertical-align: middle;
         max-width: 25px;
         height: auto;
+    }
+    .slideshow-container{
+    height: 202px;
+    }
+
+    .slideshow-container-item{
+    height: 202px;
     }
 }
