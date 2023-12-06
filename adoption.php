@@ -76,7 +76,6 @@ $results = $connection->query($sql);
 
 if ($results->num_rows > 0) {
     while ($row = $results->fetch_assoc()) {
-        $matchedBreeds = array("Terrier", "Retriever", "Lab");
 
         if (in_array($row['Breed'], $matchedBreeds)) {
             echo "<div class='dogs-item'>";
