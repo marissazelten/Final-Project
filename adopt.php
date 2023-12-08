@@ -170,7 +170,7 @@
     </div>
 
     <div>
-        <?php
+    <!-- <?php
             $servername = "localhost";
             $username = "uuu9s7lqeekc7";
             $password = "dogdatabase1";
@@ -212,21 +212,22 @@
             }
             
             $connection->close();
-        ?>
+        ?> -->
 
-            <form action="/action_page.php">
-            <label for="fname">Dog name:</label><br>
-            <input type="text" id="fname" name="fname" value=""><br>
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" value=""><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname" value=""><br><br>
-                <label for="fname">Address:</label><br>
-            <input type="text" id="fname" name="fname" value=""><br>
-                <label for="fname">Why you want to adopt this dog:</label><br>
-            <input type="text" id="fname" name="fname" value=""><br>
-            <input type="submit" value="Submit">
-            </form> 
+
+        <form action="/action_page.php">
+        <label for="fname">Dog name:</label><br>
+        <input type="text" id="fname" name="fname" value=""><br>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" value=""><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value=""><br><br>
+            <label for="fname">Address:</label><br>
+        <input type="text" id="fname" name="fname" value=""><br>
+            <label for="fname">Why you want to adopt this dog:</label><br>
+        <input type="text" id="fname" name="fname" value=""><br>
+        <input type="submit" value="Submit">
+        </form> 
 
 
     </div>
@@ -320,6 +321,37 @@
             dogImg.src = dog.image_link;
             dogImg.alt = 'Dog Image';
             dogItem.append(dogImg);
+
+// PHP starts here
+            $sql = "SELECT * FROM Dogs WHERE Status = 'available'"; 
+            $results = $connection->query($sql); 
+            $matchedBreeds = array("Boston Terrier", "Golden Retriever", "Black Lab");
+            
+            if ($results->num_rows > 0) {
+                while ($row = $results->fetch_assoc()) {
+                    $ourCurrentBreed = strtolower($row['Breed']);
+                 
+                    for ($i = 0; $i < count($matchedBreeds); $i++) {
+                        $current_breed = strtolower($matchedBreeds[$i]);
+            
+            
+                if (strpos($current_breed, $ourCurrentBreed) !== false) {
+                            echo "<div class='dogs-item'>";
+                            echo "<p><img src='{$row['Image']}' alt='Image' style='max-width: 100%; height: auto;'></p>";
+                            echo "<p>Name: {$row['Name']}</p>";
+                            echo "<p>Breed: {$row['Breed']}</p>";
+                            echo "<p>Description: {$row['Description']}</p>";
+                            echo "<p>Availability: {$row['Status']}</p>";
+                            echo "</div>";
+                        }
+                    }
+                }
+            } else {
+                echo "No results";
+            }
+            
+            $connection->close();
+// phps ends here
 
 
             //dogItem.append("Scale:")
