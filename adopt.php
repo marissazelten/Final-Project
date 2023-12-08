@@ -186,7 +186,6 @@
             
             $sql = "SELECT * FROM Dogs WHERE Status = 'available'"; 
             $results = $connection->query($sql); 
-            $matchedBreeds = array("Boston Terrier", "Golden Retriever", "Black Lab");
             
             if ($results->num_rows > 0) {
                 while ($row = $results->fetch_assoc()) {
