@@ -312,7 +312,7 @@
 
             var dogName = document.createElement('h2');
             dogName.innerText = dog.name;
-            console.log("dog name is " + dog.name)
+           // console.log("dog name is " + dog.name)
             dogItem.append(dogName);
 
 
@@ -323,6 +323,10 @@
             dogItem.append(dogImg);
 
 // PHP starts here
+            dogInfoContainer.innerHTML= "starting php now";
+<?php
+            echo("in php");
+
             $sql = "SELECT * FROM Dogs WHERE Status = 'available'"; 
             $results = $connection->query($sql); 
             $matchedBreeds = array("Boston Terrier", "Golden Retriever", "Black Lab");
@@ -351,6 +355,10 @@
             }
             
             $connection->close();
+            echo("done w php");
+
+            ?>
+            console.log("outside of php");
 // phps ends here
 
 
@@ -358,58 +366,58 @@
 
             var good_with_children = document.createElement('ul');
             good_with_children.innerText = "Good with children: " + dog.good_with_children;
-            console.log("good w children " + dog.good_with_children);
+           // console.log("good w children " + dog.good_with_children);
             dogItem.append(good_with_children);
 
 
             var good_with_other_dogs = document.createElement('ul');
             good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
-            console.log("good w dogs " + dog.good_with_other_dogs);
+          //  console.log("good w dogs " + dog.good_with_other_dogs);
             dogItem.append(good_with_other_dogs);
 
 
             var grooming = document.createElement('ul');
             grooming.innerText = "Grooming: " + dog.grooming;
-            console.log("grooming " + dog.grooming);
+            //console.log("grooming " + dog.grooming);
             dogItem.append(grooming);
 
             var drooling = document.createElement('ul');
             drooling.innerText = "Drooling: " + dog.drooling;
-            console.log("drooling " + dog.drooling);
+            // console.log("drooling " + dog.drooling);
             dogItem.append(drooling);
 
             var coat_length = document.createElement('ul');
             coat_length.innerText = "Coat length: " + dog.coat_length;
-            console.log("coat_length " + dog.coat_length);
+            // console.log("coat_length " + dog.coat_length);
             dogItem.append(coat_length);
 
             var good_with_strangers = document.createElement('ul');
             good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
-            console.log("good_with_strangers " + dog.good_with_strangers);
+            // console.log("good_with_strangers " + dog.good_with_strangers);
             dogItem.append(good_with_strangers);
 
             var playfulness = document.createElement('ul');
             playfulness.innerText = "Playfulness: " + dog.playfulness;
-            console.log("playfulness " + dog.playfulness);
+            // console.log("playfulness " + dog.playfulness);
             dogItem.append(playfulness);
 
             var lifeExpectancy = document.createElement('ul');
             var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
             lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
-            console.log("avg life expectancy " + avgLifeExpectancy);
+            // console.log("avg life expectancy " + avgLifeExpectancy);
             dogItem.append(lifeExpectancy);
 
             var height = document.createElement('ul');
             var avgHeight = ((dog.min_height_male) + (dog.min_height_female) + (dog.max_height_male) + (dog.max_height_female))/4;
             height.innerText = "Average Height : " + avgHeight + " inches";
-            console.log("avg height " + avgHeight);
+            // console.log("avg height " + avgHeight);
             dogItem.append(height);
 
 
             var weight = document.createElement('ul');
             var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
             weight.innerText = "Average Weight : " + avgWeight + " pounds";
-            console.log("avg weight " + avgWeight);
+            // console.log("avg weight " + avgWeight);
             dogItem.append(weight);
             
             dogItem.innerHTML += '<hr>';
@@ -421,7 +429,7 @@
             dogInfoContainer.appendChild(dogItem);
         });
 
-        console.log("matched breeds are " + matchedBreeds)
+         console.log("matched breeds are " + matchedBreeds)
 
     }
 
