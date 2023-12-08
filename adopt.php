@@ -354,8 +354,7 @@
             
             $connection->close();
             echo("done w php");
-
-            ?>
+?>
             console.log("outside of php");
 // phps ends here
 
