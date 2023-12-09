@@ -243,6 +243,8 @@
     // }
 
     function fetchDogInfo(traits) {
+        console.log("fetchDogInfo traits: " + traits);
+
         const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
         const apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + traits;
 
@@ -287,6 +289,8 @@
 
 
     function updateDogInfo(data) {
+        console.log("updateDogInfo data: " + data);
+
         var dogInfoContainer = document.getElementById('dogInfoContainer');
         dogInfoContainer.innerHTML = "";
        
