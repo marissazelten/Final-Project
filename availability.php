@@ -29,7 +29,7 @@ if ($results->num_rows > 0) {
 
             if (strpos($current_breed, $ourCurrentBreed) !== false) {
                 $dogInfo = array(
-                    'Image' => $row['Image']
+                    'Image' => $row['Image'],
                     'Name' => $row['Name'],
                     'Breed' => $row['Breed'],
                     'Description' => $row['Description'],
