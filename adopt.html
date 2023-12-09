@@ -167,10 +167,14 @@
             <!-- dog info goes here -->
         </div>
 
+        <div id="availabilityResults">        
+            <!-- availble dogs info goes here -->
+        </div>
+
+
     </div>
 
     
-
     <footer>
         <p>&copy; 2023 Mutts & Meows</p>
     </footer>
@@ -188,7 +192,7 @@
         //iterates through checkboxes and adds to checkedBoxes array
         document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
             if(checkbox.checked){
-                console.log("checkbox is" + checkbox.id);
+                // console.log("checkbox is" + checkbox.id);
 
                 if(checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability"){
                     checkedBoxes.push(checkbox.id+"=5");
@@ -199,12 +203,11 @@
                     checkedBoxes.push(checkbox.id+"=1");
                     checkedBoxes.push(checkbox.id+"=2");
                     // checkedBoxes.push(checkbox.id+"=3");
-
                 }
             }
         });
        
-        console.log("checked boxes are " + checkedBoxes);
+        // console.log("checked boxes are " + checkedBoxes);
         if (checkedBoxes.length > 0) {
                 fetchDogInfo(checkedBoxes.join('&'));
         } else {
@@ -213,36 +216,80 @@
         
     }
 
-    function fetchDogInfo(trait) {
-        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
-        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
+    // function fetchDogInfo(trait){
+    //     const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
+    //     var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
 
-        console.log("url is:" + apiUrl);
+    //     console.log("url is:" + apiUrl);
 
         
-        //from Dogs API Documentation
-        $.ajax({
-            method: 'GET',
-            url: apiUrl,
-            headers: { 'X-Api-Key': apiKey },
-            contentType: 'application/json',
-            success: function (result) {
-                //update the page with relevent dogs
-                updateDogInfo(result);
-                console.log("here is the data from Dogs API");
-                console.log(result);
+    //     //from Dogs API Documentation
+    //     $.ajax({
+    //         method: 'GET',
+    //         url: apiUrl,
+    //         headers: { 'X-Api-Key': apiKey },
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             //update the page with relevent dogs
+    //             updateDogInfo(result);
+    //             console.log("here is the data from Dogs API");
+    //             console.log(result);
 
-            },
-            error: function ajaxError(jqXHR) {
-                console.error('Error: ', jqXHR.responseText);
+    //         },
+    //         error: function ajaxError(jqXHR) {
+    //             console.error('Error: ', jqXHR.responseText);
+    //         }
+    //     });
+    // }
+
+    function fetchDogInfo(traits) {
+        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
+        const apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + traits;
+
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'X-Api-Key': apiKey,
+                'Content-Type': 'application/json'
             }
+        })
+        .then(response => response.json())
+        .then(result => {
+            //after getting dog info, sends the matchedBreeds to availability.php
+            sendToAvailabilityPHP(matchedBreeds);
+            //update the page with relevant dogs
+            updateDogInfo(result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     }
+
+    function sendToAvailabilityPHP(matchedBreeds) {
+        //make a POST request to availability.php with matchedBreeds
+        fetch('availability.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ matchedBreeds: matchedBreeds })
+        })
+        .then(response => response.text())
+        .then(result => {
+            //displays the result from availability.php
+            document.getElementById('availabilityResults').innerHTML = result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
 
     function updateDogInfo(data) {
         var dogInfoContainer = document.getElementById('dogInfoContainer');
         dogInfoContainer.innerHTML = "";
-
+       
         //display dog info
         data.forEach(function(dog){
             var dogItem = document.createElement('div');
@@ -265,45 +312,45 @@
 
             var good_with_children = document.createElement('ul');
             good_with_children.innerText = "Good with children: " + dog.good_with_children;
-            console.log("good w children " + dog.good_with_children);
+            // console.log("good w children " + dog.good_with_children);
             dogItem.append(good_with_children);
 
 
             var good_with_other_dogs = document.createElement('ul');
             good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
-            console.log("good w dogs " + dog.good_with_other_dogs);
+            // console.log("good w dogs " + dog.good_with_other_dogs);
             dogItem.append(good_with_other_dogs);
 
 
             var grooming = document.createElement('ul');
             grooming.innerText = "Grooming: " + dog.grooming;
-            console.log("grooming " + dog.grooming);
+            // console.log("grooming " + dog.grooming);
             dogItem.append(grooming);
 
             var drooling = document.createElement('ul');
             drooling.innerText = "Drooling: " + dog.drooling;
-            console.log("drooling " + dog.drooling);
+            // console.log("drooling " + dog.drooling);
             dogItem.append(drooling);
 
             var coat_length = document.createElement('ul');
             coat_length.innerText = "Coat length: " + dog.coat_length;
-            console.log("coat_length " + dog.coat_length);
+            // console.log("coat_length " + dog.coat_length);
             dogItem.append(coat_length);
 
             var good_with_strangers = document.createElement('ul');
             good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
-            console.log("good_with_strangers " + dog.good_with_strangers);
+            // console.log("good_with_strangers " + dog.good_with_strangers);
             dogItem.append(good_with_strangers);
 
             var playfulness = document.createElement('ul');
             playfulness.innerText = "Playfulness: " + dog.playfulness;
-            console.log("playfulness " + dog.playfulness);
+            // console.log("playfulness " + dog.playfulness);
             dogItem.append(playfulness);
 
             var lifeExpectancy = document.createElement('ul');
             var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
             lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
-            console.log("avg life expectancy " + avgLifeExpectancy);
+            // console.log("avg life expectancy " + avgLifeExpectancy);
             dogItem.append(lifeExpectancy);
 
             var height = document.createElement('ul');
@@ -316,7 +363,7 @@
             var weight = document.createElement('ul');
             var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
             weight.innerText = "Average Weight : " + avgWeight + " pounds";
-            console.log("avg weight " + avgWeight);
+            // console.log("avg weight " + avgWeight);
             dogItem.append(weight);
             
             dogItem.innerHTML += '<hr>';
@@ -333,5 +380,7 @@
     }
 
 </script>
+
+
 
 </html>
