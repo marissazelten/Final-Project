@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mutts & Meows - Pet Shop</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         .store-info-container{
@@ -72,6 +73,38 @@
             <a href="contact-us.html"> Contact Us</a>
         </ul>
     </nav>
+
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+     </script>
+
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#"> &nbsp;</a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="gallery.html"> Gallery</a>
+            <a href="products.html"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+            <a href="contact-us.html"> Contact Us</a>
+        </div>
+    </div>
 
 
     <div class="store-info-container">
