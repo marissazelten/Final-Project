@@ -100,8 +100,7 @@ if ($results->num_rows > 0) {
 
 $connection->close();
 ?>
-
-<form action="/action_page.php" method="post">
+<form method="get" action="processform.php">
   <label for="dogname">Dog name:</label><br>
   <input type="text" id="dogname" name="dogname" value=""><br>
   <label for="firstname">First name:</label><br>
