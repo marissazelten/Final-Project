@@ -1,55 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 </head>
+<body>
+
 <?php
 
-//establish connection info
 $servername = "localhost";
-$username = "uuu9s7lqeekc7";
-$password = "dogDatabase!";
+$username = "ugttp8qi3togc";
+$password = "dogdatabase1";
 $dbname = "dbklmqdle5ki76";
 
-//create connection
-$connection = new mysqli($servername, $username, $password);
+// Create connection
+$connection = new mysqli($servername, $username, $password, $dbname);
 
-//check to see if connection was established 
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-//Header title 
 echo "<h1>Thanks for starting the adoption process!</h1>";
 echo "<p>We're excited to hear about your new adventure!</p>";
 
-//select the database
-$connection->select_db($dbname);
+//if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $Name = $_GET['dogname'];
 
-//run sql query 
-$sql = "SELECT * FROM Dogs"; 
-$results = $connection->query($sql); 
+    $sql = "UPDATE Dogs SET Status='Unavailable' WHERE Name='$Name'";
+    if ($connection->query($sql) === TRUE) {
+        echo "<p>Thanks for adopting: " . $Name . "</p>";
+    } else {
+        echo "Error updating record: " . $connection->error;
+    }
+//}
 
-$_GET as $key => $value
-
- while($row = $results->fetch_assoc()){
-                if($row['Name'] == $Name){
-                    // Display order details for each item
-
-                    echo "<p>Thanks for adopting: " . $row['Name'] . "</p>";
-                    $sql = "UPDATE Dogs SET Status='Unavailable' WHERE $row['Name']";
-                    $connection->query($sql); 
-
-
-                }
-
-
-
-// Close the database connection
 $connection->close();
+
 ?>
 
 </body>
 </html>
-
