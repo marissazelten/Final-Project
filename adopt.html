@@ -217,7 +217,7 @@
             url: 'availability.php',
             data: { dogsData: JSON.stringify(data) }, //send the data as json string
             success: function (availableDogs) {
-                console.log("availableDogs" + availableDogs);
+                console.log("availableDogs " + availableDogs);
                 // Update the page with relevant dogs based on availability
                 updateDogInfo(availableDogs);
             },
@@ -228,7 +228,7 @@
     }
 
     function updateDogInfo(data) {
-        console.log("updateDogInfo data: " + data);
+        // console.log("updateDogInfo data: " + data);
 
         var dogInfoContainer = document.getElementById('dogInfoContainer');
         dogInfoContainer.innerHTML = "";

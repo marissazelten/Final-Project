@@ -10,7 +10,7 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-echo "<h1>Find Your Furry Friend</h1>";
+// echo "<h1>Find Your Furry Friend</h1>";
 
 
 $matchedBreeds = $_POST['matchedBreeds'];
@@ -27,15 +27,24 @@ if ($results->num_rows > 0) {
         for ($i = 0; $i < count($matchedBreeds); $i++) {
             $current_breed = strtolower($matchedBreeds[$i]);
 
-        if (strpos($current_breed, $ourCurrentBreed) !== false) {
-                    echo "<div class='dogs-item'>";
-                    echo "<p><img src='{$row['Image']}' alt='Image' style='max-width: 100%; height: auto;'></p>";
-                    echo "<p>Name: {$row['Name']}</p>";
-                    echo "<p>Breed: {$row['Breed']}</p>";
-                    echo "<p>Description: {$row['Description']}</p>";
-                    echo "<p>Availability: {$row['Status']}</p>";
-                    echo "</div>";
-                }
+            if (strpos($current_breed, $ourCurrentBreed) !== false) {
+                $dogInfo = array(
+                    'Image' => $row['Image']
+                    'Name' => $row['Name'],
+                    'Breed' => $row['Breed'],
+                    'Description' => $row['Description'],
+                    'Status' => $row['Status']                
+                );
+
+                $availableDogs[] = $dogInfo;
+                        // echo "<div class='dogs-item'>";
+                        // echo "<p><img src='{$row['Image']}' alt='Image' style='max-width: 100%; height: auto;'></p>";
+                        // echo "<p>Name: {$row['Name']}</p>";
+                        // echo "<p>Breed: {$row['Breed']}</p>";
+                        // echo "<p>Description: {$row['Description']}</p>";
+                        // echo "<p>Availability: {$row['Status']}</p>";
+                        // echo "</div>";
+            }
         }
     }
 } else {
@@ -44,5 +53,8 @@ if ($results->num_rows > 0) {
 
 
 $connection->close();
+
+//encode the array as json and echo the result
+echo json_encode($availableDogs);
 
 ?>
