@@ -107,38 +107,10 @@
         <form action="#">
             <table>
 
-                <!-- <tr>
-                    <td><label for="good_with_children">good_with_children:</label></td>
-                    <td><input type="checkbox" id="good_with_children" name="good_with_children"></td>
-                </tr>
-                <tr>
-                    <td><label for="good_with_other_dogs">good_with_other_dogs:</label></td>
-                    <td><input type="checkbox" id="good_with_other_dogs" name="good_with_other_dogs"></td>
-                </tr> -->
                 <tr>
                     <td><label for="shedding">shedding:</label></td>
                     <td><input type="checkbox" id="shedding" name="shedding"></td>
                 </tr>
-                <!-- <tr>
-                    <td><label for="grooming">grooming:</label></td>
-                    <td><input type="checkbox" id="grooming" name="grooming"></td>
-                </tr>
-                <tr>
-                    <td><label for="drooling">drooling:</label></td>
-                    <td><input type="checkbox" id="drooling" name="drooling"></td>
-                </tr>
-                <tr>
-                    <td><label for="coat_length">coat_length:</label></td>
-                    <td><input type="checkbox" id="coat_length" name="coat_length"></td>
-                </tr>
-                <tr>
-                    <td><label for="good_with_strangers">good_with_strangers:</label></td>
-                    <td><input type="checkbox" id="good_with_strangers" name="good_with_strangers"></td>
-                </tr> 
-                <tr>
-                    <td><label for="playfulness">playfulness:</label></td>
-                    <td><input type="checkbox" id="playfulness" name="playfulness"></td>
-                </tr>         -->
                 <tr>
                     <td><label for="protectiveness">protectiveness:</label></td>
                     <td><input type="checkbox" id="protectiveness" name="protectiveness"></td>
@@ -197,17 +169,14 @@
                 if(checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability"){
                     checkedBoxes.push(checkbox.id+"=5");
                     checkedBoxes.push(checkbox.id+"=4");
-                    // checkedBoxes.push(checkbox.id+"=3");
 
                 } else if(checkbox.id == "shedding" || checkbox.id == "barking"){
                     checkedBoxes.push(checkbox.id+"=1");
                     checkedBoxes.push(checkbox.id+"=2");
-                    // checkedBoxes.push(checkbox.id+"=3");
                 }
             }
         });
        
-        // console.log("checked boxes are " + checkedBoxes);
         if (checkedBoxes.length > 0) {
                 fetchDogInfo(checkedBoxes.join('&'));
         } else {
@@ -258,9 +227,10 @@
         .then(response => response.json())
         .then(result => {
             //after getting dog info, sends the matchedBreeds to availability.php
-            sendToAvailabilityPHP(matchedBreeds);
+            var availabilityPHPresult = sendToAvailabilityPHP(matchedBreeds);
+            console.log("availabilityPHPresult: " +availabilityPHPresult);
             //update the page with relevant dogs
-            updateDogInfo(result);
+            updateDogInfo(availabilityPHPresult);
         })
         .catch(error => {
             console.error('Error:', error);
