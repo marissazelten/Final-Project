@@ -301,7 +301,7 @@ table img {
       .show {display:block;}
     
      .slideshow-container {
-         margin: 20px;
+         margin: 100px 20px 20px 20px;
     }
 
 @media (max-width: 580px){
