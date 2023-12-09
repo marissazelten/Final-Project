@@ -185,81 +185,47 @@
         
     }
 
-    // function fetchDogInfo(trait){
-    //     const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
-    //     var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
-
-    //     console.log("url is:" + apiUrl);
-
-        
-    //     //from Dogs API Documentation
-    //     $.ajax({
-    //         method: 'GET',
-    //         url: apiUrl,
-    //         headers: { 'X-Api-Key': apiKey },
-    //         contentType: 'application/json',
-    //         success: function (result) {
-    //             //update the page with relevent dogs
-    //             updateDogInfo(result);
-    //             console.log("here is the data from Dogs API");
-    //             console.log(result);
-
-    //         },
-    //         error: function ajaxError(jqXHR) {
-    //             console.error('Error: ', jqXHR.responseText);
-    //         }
-    //     });
-    // }
-
-    function fetchDogInfo(traits) {
-        console.log("fetchDogInfo traits: " + traits);
-
+    function fetchDogInfo(trait){
         const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
-        const apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + traits;
-
-        fetch(apiUrl, {
+        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
+        
+        //from Dogs API Documentation
+        $.ajax({
             method: 'GET',
-            headers: {
-                'X-Api-Key': apiKey,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(result => {
-            //after getting dog info, sends the matchedBreeds to availability.php
-            var availabilityPHPresult = sendToAvailabilityPHP(matchedBreeds);
-            console.log("availabilityPHPresult: " +availabilityPHPresult);
-            //update the page with relevant dogs
-            updateDogInfo(availabilityPHPresult);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+            url: apiUrl,
+            headers: { 'X-Api-Key': apiKey },
+            contentType: 'application/json',
+            success: function (result) {
+                //now we need to take these results and send it to availbility.php and compare 
+                //the dogs from the api to the ones we have availble in the db
+                sendToAvailabilityPHP(result);
 
-    function sendToAvailabilityPHP(matchedBreeds) {
-        console.log("sendting matchedBreeds to availbiltiy php. Mathced breed-> " + matchedBreeds);
-        //make a POST request to availability.php with matchedBreeds
-        fetch('availability.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+                // //update the page with relevent dogs
+                // updateDogInfo(result);
+                // console.log("here is the data from Dogs API" + result);
+
             },
-            body: JSON.stringify({ matchedBreeds: matchedBreeds })
-        })
-        .then(response => response.text())
-        .then(result => {
-            //displays the result from availability.php
-            console.log("displaying availbility results");
-
-            document.getElementById('availabilityResults').innerHTML = result;
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            error: function ajaxError(jqXHR) {
+                console.error('Error: ', jqXHR.responseText);
+            }
         });
     }
 
-
+    function sendToAvailabilityPHP(data) {
+        $.ajax({
+            method: 'POST',
+            url: 'availability.php',
+            data: { dogsData: JSON.stringify(data) }, //send the data as json string
+            success: function (availableDogs) {
+                console.log("availableDogs" + availableDogs);
+                // Update the page with relevant dogs based on availability
+                updateDogInfo(availableDogs);
+            },
+            error: function ajaxError(jqXHR) {
+                console.error('Error sending data to availability.php: ', jqXHR.responseText);
+            }
+        });
+    }
 
     function updateDogInfo(data) {
         console.log("updateDogInfo data: " + data);
