@@ -6,11 +6,24 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
-            margin: 0;
+        div.product {
+            margin: 10px;
+            display: inline-block;
+            width: 300px;
+            border-style: solid;
+            height: 500px;
+            padding: 10px;
+            background-color: pink; 
+            border-radius: 10px;
+      }
+        div.ptext {
+            padding: 0px 5px; 
+            display: block; 
+            height: 200px
         }
-        table {
-            width: 100%; 
+      h1 {
+          text-align: center;
+          font-size: 2.5em;
         }
         
 @media (max-width: 768px) {
@@ -57,6 +70,7 @@
     {
         var firstName = document.getElementById('fname').value;
         var lastName = document.getElementById('lname').value;
+        var email = document.getElementById('email').value;
         var order1 = document.getElementById('order1').value;
         var order2 = document.getElementById('order2').value;
         var order3 = document.getElementById('order3').value;
@@ -75,7 +89,14 @@
             alert('Last Name is required');
             return false;
         }
-        //I know this is not efficient but the for loop I ran the form was working
+         if (email.trim()== "") {
+            alert('An email is required');
+            return false;
+        }
+        if (email.search("@") == -1) {
+            alert('Please enter a valid email');
+            return false;
+        }
         if (order1.trim() == 0 && order2.trim() == 0 && order3.trim() == 0 && order4.trim() == 0 && order5.trim() == 0 && order6.trim() == 0 && order7.trim() == 0 && order8.trim() == 0) {
             alert('Please place at least one order');
             return false;
@@ -102,7 +123,7 @@
 </br>
 </br>
 </br>
-<div>
+<div style="margin: 10px">
     <h1>Our Products</h1>
     <?php
   
@@ -140,21 +161,27 @@ function selectoption($index) {
 //get results
 if ($result->num_rows > 0) 
 //puts SQL in a form
-{ ?> <form action="order.php" method="post" onsubmit="return validateForm()"> <?php 
+{ ?> 
+<form action="summary.php" method="post" onsubmit="return validateForm()">
+<span style="margin:auto; justify-content: center">
+ <?php 
   while($row = $result->fetch_array()) 
   { 
     //echos each element
     $selectstring = selectoption($row["index"]);
-    echo "<div> <img src='".$row["image"]."' width='200'> </br> <h3>" . $row["name"] . " </h3> $" . $row["price"] . "</br> Description: " . $row["description"] . "</br>" . $selectstring . "</br> </div> ";
+    echo "<div class='product'> <img src='".$row["image"]."' height='200' style='margin: auto; display: block'> <div class='ptext'> <h3>" . $row["name"] . " </h3> $" . $row["price"] . "</br> Description: " . $row["description"] . "</div> </br> " . $selectstring . "</br> </div> ";
     
   }
   ?>  
+  </span>
   </br>
-  <div style='width: 100%'>
+  <div style='width: 100%; margin: 15px''>
   <label for="fname">First name:</label><br>
   <input type="text" id="fname" name="fname"><br>
   <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname"><br><br>
+  <input type="text" id="lname" name="lname"><br>
+  <label for="email">Email:</label><br>
+  <input type="text" id="email" name="email"><br><br>
   <label for="specialinst">Special Instructions:</label>
   <textarea id="specialinst" name="specialinst" rows="4" cols="50"></textarea>
   </br>
@@ -172,6 +199,7 @@ else
 $conn->close();
 
   ?>
+
     </div>
     <footer>
         <p>&copy; 2023 Mutts & Meows</p>

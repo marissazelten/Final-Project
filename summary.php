@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title> Mutts & Meows </title>
     <style>
-      div {
-        margin: 10px;
-        display: inline-block;
-        width: 300px;
-      }
-  
       h1 {
           text-align: center;
           font-size: 2.5em;
@@ -20,10 +14,15 @@
       .paragraph{
         justify-content: center;
         text-align: right;
-        margin: 15px;
         line-height: 1.5;
         width: 500px;
-
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        border-style: solid;
+        padding: 10px;
+        background-color: pink; 
+        border-radius: 10px;
       } 
         
     @media (max-width: 768px) {
@@ -31,8 +30,13 @@
         font-size: 20px;
         padding-top: 20px; 
         margin-top: 70px; 
+      }
+
+      .paragraph {
+        width: 400px;
+      }
+
     }
-}
     </style> 
 </head>
 
@@ -114,6 +118,7 @@ $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 
 $ordersum = 0;
+$email = "";
 //get results
 if ($result->num_rows > 0) 
 { 
@@ -121,12 +126,20 @@ if ($result->num_rows > 0)
   { 
     $ordernum = "order" . $row["index"];
     $ordertotal = $row["price"] * $_POST[$ordernum];
-    echo $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal ."</br>";
-    $ordersum = $ordertotal + $ordersum;
+    if ($ordertotal > 0) {
+      echo "<img src='".$row["image"]."' height='200' style='margin: auto; display: block'> </br> ";
+      echo $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal ."</br> </br>";
+      
+      $email = $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal . "/n";
+      $ordersum = $ordertotal + $ordersum;
+    }
   }
-  $tax = $ordersum * 0.0625; 
-  $total = $tax + $ordersum;
-  echo "Subtotal: $" . $ordersum . "</br> Tax: $". $tax ."</br> Total: $" .$total;
+  $tax = round($ordersum * 0.0625, 2); 
+  $total = round($tax + $ordersum, 2);
+  echo "Subtotal: $" . round($ordersum, 2) . "</br> Tax: $". $tax ."</br> </br> Total: $" .$total;
+  echo "</br> </br> An email was sent to ". $_POST['email'] . " with your order summary";
+  
+  $email = $email . "Subtotal: $" . round($ordersum, 2) . "/n Tax: $". $tax ." /n /n Total: $" .$total;
 } 
 else 
   echo "no results";
@@ -136,4 +149,10 @@ $conn->close();
 
   ?>
 </div>
+</br> 
+</br> 
+    <footer>
+        <p>&copy; 2023 Mutts & Meows</p>
+    </footer>
 </body>
+ 
