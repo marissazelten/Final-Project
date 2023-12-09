@@ -19,16 +19,16 @@ $matchedBreeds = $_POST['matchedBreeds'];
 $sql = "SELECT * FROM Dogs WHERE Status = 'available'"; 
 $results = $connection->query($sql); 
 // $matchedBreeds = array("Boston Terrier", "Golden Retriever", "Black Lab");
-echo "before if"
+echo "before if";
 
 if ($results->num_rows > 0) {
     while ($row = $results->fetch_assoc()) {
         $ourCurrentBreed = strtolower($row['Breed']);
-        echo "before for"
+        echo "before for";
 
         for ($i = 0; $i < count($matchedBreeds); $i++) {
             $current_breed = strtolower($matchedBreeds[$i]);
-            echo "before 2nd if"
+            echo "before 2nd if";
 
             if (strpos($current_breed, $ourCurrentBreed) !== false) {
                 $dogInfo = array(
@@ -54,7 +54,7 @@ if ($results->num_rows > 0) {
     echo "No results";
 }
 
-
+echo "here??";
 $connection->close();
 
 //encode the array as json and echo the result
