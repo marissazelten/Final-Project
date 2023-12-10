@@ -45,7 +45,6 @@ footer{
     padding: 15px auto; 
     text-align: center; 
     max-width: 100%;
-    padding: 15px 0px 15px 0px;
 }
 footer a{
     text-decoration: none; 
@@ -68,7 +67,7 @@ footer a:hover{
     height: auto;
     background-color: pink;
     border-radius: 20px;
-
+    height: 800px;
 }
 
 .slideshow-container-item{
@@ -76,6 +75,7 @@ footer a:hover{
     flex: 1;
     align-items: center;
     justify-content: space-between;
+    height: 800px;
 }
 
 #image{
@@ -153,8 +153,8 @@ h1{
 }
 
 .about-us-img{
-    max-width: 50%;
-    max-height: auto;
+    max-width: auto;
+    max-height: 110px;
 }
 
 .about-us-box:hover{
@@ -241,6 +241,13 @@ table img {
         max-width: 25px;
         height: auto;
     }   
+    .slideshow-container{
+    height: 340px;
+    }
+
+.slideshow-container-item{
+    height: 340px;
+    }
 }
 
 @media (max-width: 750px){
@@ -302,10 +309,45 @@ table img {
     
      .slideshow-container {
          margin: 70px 20px 20px 20px;
+         height: 266px;
     }
+
+    .slideshow-container-item{
+    height: 266px;
+    }
+   
+    .about-us-3-boxes{
+        display: flex;
+        justify-content: center;
+        width: 75%;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .about-us-box{
+        flex: 75%;
+        padding: 10px;
+        margin: auto;
+    }
+    .about-us-img{
+        max-width: auto;
+        max-height: 80px;
+    }
+
+}
 
 @media (max-width: 580px){
     body{
         font-size: 15px;
+    }
+     .slideshow-container{
+    height: 202px;
+    }
+
+    .slideshow-container-item{
+    height: 202px;
+    }
+    .about-us-3-boxes{
+        width: 90%;
     }
 }
