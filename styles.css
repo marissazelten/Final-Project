@@ -80,8 +80,8 @@ footer a:hover{
 
 #image{
     padding-left: auto;
-    max-width: 500px;
-    max-height: auto;  
+    max-width: 400px;
+    max-height: auto;
     display: flex; 
 }
 
@@ -339,7 +339,7 @@ table img {
 
 
     .mission-items{
-        margin-right: 15px;
+        margin: 0px 15px;
     }
 
     .mission-img{
@@ -363,6 +363,6 @@ table img {
         width: 90%;
     }
     .mission-items{
-        margin: auto, 15px;
+        margin: auto 15px;
     }
 }
