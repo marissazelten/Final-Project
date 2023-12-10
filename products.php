@@ -39,13 +39,11 @@
 <nav>
     <ul>
         <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
-        <a href="index.html"> Home</a>
         <a href="About.html"> About Us</a>
         <a href="reviews.html"> Testimonials</a>
-        <a href="gallery.html"> Gallery</a>
-        <a href="products.html"> Products</a>
+        <a href="adopt.html"> Adopt</a>
+        <a href="products.php"> Products</a>
         <a href="store-info.html"> Store Info</a>
-        <a href="contact-us.html"> Contact Us</a>
     </ul>
 </nav>
 
@@ -110,13 +108,11 @@
         <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
         <div id="myDropdown" class="dropdown-content">
             <a href="#"> &nbsp;</a>
-            <a href="index.html"> Home</a>
             <a href="About.html"> About Us</a>
             <a href="reviews.html"> Testimonials</a>
-            <a href="gallery.html"> Gallery</a>
-            <a href="products.html"> Products</a>
+            <a href="adopt.html"> Adopt</a>
+            <a href="products.php"> Products</a>
             <a href="store-info.html"> Store Info</a>
-            <a href="contact-us.html"> Contact Us</a>
         </div>
     </div>
     
@@ -202,7 +198,9 @@ $conn->close();
 
     </div>
     <footer>
-        <p>&copy; 2023 Mutts & Meows</p>
+          <p>&copy; 2023 Mutts & Meows</p>
+            <a href="contact-us.html"> Contact Us</a>
+        </br>
     </footer>
 
     <script>
