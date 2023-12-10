@@ -190,9 +190,13 @@ function validateANDfetch() {
             if (checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability") {
                 checkedBoxes.push(checkbox.id + "=5");
                 checkedBoxes.push(checkbox.id + "=4");
+                checkedBoxes.push(checkbox.id + "=3");
+
             } else if (checkbox.id == "shedding" || checkbox.id == "barking") {
                 checkedBoxes.push(checkbox.id + "=1");
                 checkedBoxes.push(checkbox.id + "=2");
+                checkedBoxes.push(checkbox.id + "=3");
+
             }
         }
     });
