@@ -42,7 +42,7 @@ body{
 footer{
     background-color: rgb(52, 51, 51); 
     color: white; 
-    padding: 15px auto; 
+    padding: 20px; 
     text-align: center; 
     max-width: 100%;
 }
@@ -333,6 +333,18 @@ table img {
         max-width: auto;
         max-height: 80px;
     }
+    .mission-container{
+        flex-direction: column;
+    }
+
+
+    .mission-items{
+        margin-right: 15px;
+    }
+
+    .mission-img{
+        max-height: 200px;
+    } 
 
 }
 
@@ -349,5 +361,8 @@ table img {
     }
     .about-us-3-boxes{
         width: 90%;
+    }
+    .mission-items{
+        margin: auto, 15px;
     }
 }
