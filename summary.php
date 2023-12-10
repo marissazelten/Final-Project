@@ -44,13 +44,11 @@
 <nav>
     <ul>
         <a href="index.html" class="logo"> <img src="images/logo.jpg" alt="Mutts and Meows Logo"> </a>
-        <a href="index.html"> Home</a>
         <a href="About.html"> About Us</a>
         <a href="reviews.html"> Testimonials</a>
-        <a href="gallery.html"> Gallery</a>
-        <a href="products.html"> Products</a>
+        <a href="adopt.html"> Adopt</a>
+        <a href="products.php"> Products</a>
         <a href="store-info.html"> Store Info</a>
-        <a href="contact-us.html"> Contact Us</a>
     </ul>
 </nav>
 <div class="dropdown">
@@ -60,10 +58,9 @@
             <a href="index.html"> Home</a>
             <a href="About.html"> About Us</a>
             <a href="reviews.html"> Testimonials</a>
-            <a href="gallery.html"> Gallery</a>
-            <a href="products.html"> Products</a>
+            <a href="adopt.html"> Adopt</a>
+            <a href="products.php"> Products</a>
             <a href="store-info.html"> Store Info</a>
-            <a href="contact-us.html"> Contact Us</a>
         </div>
     </div>
     
@@ -118,7 +115,7 @@ $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 
 $ordersum = 0;
-$email = "";
+$email = " Hello ". $_POST['fname'] . ", \n Thank you for your order from Mutts and Meows. \n View your order summary below: \n \n";
 //get results
 if ($result->num_rows > 0) 
 { 
@@ -130,16 +127,20 @@ if ($result->num_rows > 0)
       echo "<img src='".$row["image"]."' height='200' style='margin: auto; display: block'> </br> ";
       echo $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal ."</br> </br>";
       
-      $email = $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal . "/n";
+      $email = $email . $row["name"] ." Ordered: ". $_POST[$ordernum] . " x $" . $row["price"] . " = $". $ordertotal . " \n ";
       $ordersum = $ordertotal + $ordersum;
     }
   }
   $tax = round($ordersum * 0.0625, 2); 
   $total = round($tax + $ordersum, 2);
   echo "Subtotal: $" . round($ordersum, 2) . "</br> Tax: $". $tax ."</br> </br> Total: $" .$total;
-  echo "</br> </br> An email was sent to ". $_POST['email'] . " with your order summary";
+  echo "</br> </br> <div style = 'text-align: left'> An email was sent to ". $_POST['email'] . " with your order summary </div>";
   
-  $email = $email . "Subtotal: $" . round($ordersum, 2) . "/n Tax: $". $tax ." /n /n Total: $" .$total;
+  $email = $email . "Subtotal: $" . round($ordersum, 2) . "\n Tax: $". $tax ." \n \n Total: $" .$total;
+  $email = wordwrap($email,70);
+  $headers = "From: alibbe01@tufts.edu";
+  $to = $_POST['email'];
+  $sucess = mail($to, "Your Mutts and Meows Order", $email, $headers);
 } 
 else 
   echo "no results";
@@ -152,7 +153,8 @@ $conn->close();
 </br> 
 </br> 
     <footer>
-        <p>&copy; 2023 Mutts & Meows</p>
+          <p>&copy; 2023 Mutts & Meows</p>
+          <a href="contact-us.html"> Contact Us</a>
+        </br>
     </footer>
 </body>
- 
