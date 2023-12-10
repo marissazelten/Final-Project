@@ -1,8 +1,16 @@
 <?php
+//actually db info
 $servername = "localhost";
 $username = "uuu9s7lqeekc7";
 $password = "dogdatabase1";
 $dbname = "dbklmqdle5ki76";
+
+
+// //Emmas test db info
+// $servername = "localhost";
+// $username = "uctaqyp6whqgb";
+// $password = "H$44mblcz#$1";
+// $dbname = "dbb9amnxg8mjho";
 
 $connection = new mysqli($servername, $username, $password, $dbname);
 
@@ -10,25 +18,22 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-// echo "<h1>Find Your Furry Friend</h1>";
+$dogNames = json_decode($_POST['dogNames']);
 
 
-$matchedBreeds = $_POST['matchedBreeds'];
+$matchedBreeds = array();
 
-
-$sql = "SELECT * FROM Dogs WHERE Status = 'available'"; 
-$results = $connection->query($sql); 
-// $matchedBreeds = array("Boston Terrier", "Golden Retriever", "Black Lab");
-echo "before if";
+$sql = "SELECT * FROM Dogs WHERE Status = 'available'";
+$results = $connection->query($sql);
 
 if ($results->num_rows > 0) {
     while ($row = $results->fetch_assoc()) {
         $ourCurrentBreed = strtolower($row['Breed']);
-        echo "before for";
 
-        for ($i = 0; $i < count($matchedBreeds); $i++) {
-            $current_breed = strtolower($matchedBreeds[$i]);
-            echo "before 2nd if";
+        for ($i = 0; $i < count($dogNames); $i++) {
+            $current_breed = strtolower($dogNames[$i]);
+        // for ($i = 0; $i < count($matchedBreeds); $i++) {
+        //     $current_breed = strtolower($matchedBreeds[$i]);
 
             if (strpos($current_breed, $ourCurrentBreed) !== false) {
                 $dogInfo = array(
@@ -36,17 +41,11 @@ if ($results->num_rows > 0) {
                     'Name' => $row['Name'],
                     'Breed' => $row['Breed'],
                     'Description' => $row['Description'],
-                    'Status' => $row['Status']                
+                    'Status' => $row['Status']
                 );
 
                 $availableDogs[] = $dogInfo;
-                        // echo "<div class='dogs-item'>";
-                        // echo "<p><img src='{$row['Image']}' alt='Image' style='max-width: 100%; height: auto;'></p>";
-                        // echo "<p>Name: {$row['Name']}</p>";
-                        // echo "<p>Breed: {$row['Breed']}</p>";
-                        // echo "<p>Description: {$row['Description']}</p>";
-                        // echo "<p>Availability: {$row['Status']}</p>";
-                        // echo "</div>";
+                $matchedBreeds[] = $row['Breed'];
             }
         }
     }
@@ -54,10 +53,8 @@ if ($results->num_rows > 0) {
     echo "No results";
 }
 
-echo "here??";
-$connection->close();
-
-//encode the array as json and echo the result
+header('Content-Type: application/json');
 echo json_encode($availableDogs);
 
+$connection->close();
 ?>

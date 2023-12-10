@@ -104,7 +104,7 @@
         <p>Select the most important qualities you wish to have in your dog</p>
         
         <!-- onsubmit="return validateANDfetch()" -->
-        <form action="#">
+        <form action="#" method="POST">
             <table>
 
                 <tr>
@@ -154,184 +154,266 @@
 
 <script>
 
-    var matchedBreeds = [];
+var matchedBreeds = [];
+var result;
 
-    function validateANDfetch() {
-        event.preventDefault();
+function validateANDfetch() {
 
-        var checkedBoxes = [];
+    event.preventDefault();
+    var checkedBoxes = [];
 
-        //iterates through checkboxes and adds to checkedBoxes array
-        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
-            if(checkbox.checked){
-                // console.log("checkbox is" + checkbox.id);
-
-                if(checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability"){
-                    checkedBoxes.push(checkbox.id+"=5");
-                    checkedBoxes.push(checkbox.id+"=4");
-
-                } else if(checkbox.id == "shedding" || checkbox.id == "barking"){
-                    checkedBoxes.push(checkbox.id+"=1");
-                    checkedBoxes.push(checkbox.id+"=2");
-                }
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+        if (checkbox.checked) {
+            if (checkbox.id == "protectiveness" || checkbox.id == "energy" || checkbox.id == "trainability") {
+                checkedBoxes.push(checkbox.id + "=5");
+                checkedBoxes.push(checkbox.id + "=4");
+            } else if (checkbox.id == "shedding" || checkbox.id == "barking") {
+                checkedBoxes.push(checkbox.id + "=1");
+                checkedBoxes.push(checkbox.id + "=2");
             }
-        });
-       
-        if (checkedBoxes.length > 0) {
-                fetchDogInfo(checkedBoxes.join('&'));
-        } else {
-                alert('Please select at least one characteristic.');
         }
-        
-    }
+    });
 
-    function fetchDogInfo(trait){
-        const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
-        var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
-        
-        //from Dogs API Documentation
-        $.ajax({
-            method: 'GET',
-            url: apiUrl,
-            headers: { 'X-Api-Key': apiKey },
-            contentType: 'application/json',
-            success: function (result) {
-                console.log("dog API response: " + result);
-                //now we need to take these results and send it to availbility.php and compare 
-                //the dogs from the api to the ones we have availble in the db
-                sendToAvailabilityPHP(result);
-
-                // //update the page with relevent dogs
-                // updateDogInfo(result);
-                // console.log("here is the data from Dogs API" + result);
-
-            },
-            error: function ajaxError(jqXHR) {
-                console.error('Error: ', jqXHR.responseText);
-            }
-        });
-    }
-
-    function sendToAvailabilityPHP(data) {
-        $.ajax({
-            method: 'POST',
-            url: 'availability.php',
-            data: { dogsData: JSON.stringify(data) }, //send the data as json string
-            success: function (availableDogs) {
-                console.log("availableDogs " + availableDogs);
-                // Update the page with relevant dogs based on availability
-                updateDogInfo(availableDogs);
-            },
-            error: function ajaxError(jqXHR) {
-                console.error('Error sending data to availability.php: ', jqXHR.responseText);
-            }
-        });
-    }
-
-    function updateDogInfo(data) {
-        // console.log("updateDogInfo data: " + data);
-        var dogInfoContainer = document.getElementById('dogInfoContainer');
-        dogInfoContainer.innerHTML = "";
-       
-    if (data != null){
-
-        //display dog info
-        data.forEach(function(dog){
-            var dogItem = document.createElement('div');
-            dogItem.className = 'dogItem';
-
-            var dogName = document.createElement('h2');
-            dogName.innerText = dog.name;
-            console.log("dog name is " + dog.name)
-            dogItem.append(dogName);
-
-
-            //display dog image
-            var dogImg = document.createElement('img');
-            dogImg.src = dog.image_link;
-            dogImg.alt = 'Dog Image';
-            dogItem.append(dogImg);
-
-
-            //dogItem.append("Scale:")
-
-            var good_with_children = document.createElement('ul');
-            good_with_children.innerText = "Good with children: " + dog.good_with_children;
-            // console.log("good w children " + dog.good_with_children);
-            dogItem.append(good_with_children);
-
-
-            var good_with_other_dogs = document.createElement('ul');
-            good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
-            // console.log("good w dogs " + dog.good_with_other_dogs);
-            dogItem.append(good_with_other_dogs);
-
-
-            var grooming = document.createElement('ul');
-            grooming.innerText = "Grooming: " + dog.grooming;
-            // console.log("grooming " + dog.grooming);
-            dogItem.append(grooming);
-
-            var drooling = document.createElement('ul');
-            drooling.innerText = "Drooling: " + dog.drooling;
-            // console.log("drooling " + dog.drooling);
-            dogItem.append(drooling);
-
-            var coat_length = document.createElement('ul');
-            coat_length.innerText = "Coat length: " + dog.coat_length;
-            // console.log("coat_length " + dog.coat_length);
-            dogItem.append(coat_length);
-
-            var good_with_strangers = document.createElement('ul');
-            good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
-            // console.log("good_with_strangers " + dog.good_with_strangers);
-            dogItem.append(good_with_strangers);
-
-            var playfulness = document.createElement('ul');
-            playfulness.innerText = "Playfulness: " + dog.playfulness;
-            // console.log("playfulness " + dog.playfulness);
-            dogItem.append(playfulness);
-
-            var lifeExpectancy = document.createElement('ul');
-            var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
-            lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
-            // console.log("avg life expectancy " + avgLifeExpectancy);
-            dogItem.append(lifeExpectancy);
-
-            var height = document.createElement('ul');
-            var avgHeight = ((dog.min_height_male) + (dog.min_height_female) + (dog.max_height_male) + (dog.max_height_female))/4;
-            height.innerText = "Average Height : " + avgHeight + " inches";
-            // console.log("avg height " + avgHeight);
-            dogItem.append(height);
-
-
-            var weight = document.createElement('ul');
-            var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
-            weight.innerText = "Average Weight : " + avgWeight + " pounds";
-            // console.log("avg weight " + avgWeight);
-            dogItem.append(weight);
-            
-            dogItem.innerHTML += '<hr>';
-
-
-            matchedBreeds.push(dog.name);
-
-            //add dog card to dogInfoContainer
-            dogInfoContainer.appendChild(dogItem);
-        });
+    if (checkedBoxes.length > 0) {
+        fetchDogInfo(checkedBoxes.join('&'));
     } else {
-        dogInfoContainer.appendChild("No available dogs");
+        alert('Please select at least one characteristic.');
+    }
+}
 
-        //where data is null (no results)
+function fetchDogInfo(trait) {
+    const apiKey = 'vojR2IW3faueNoaU4O5u1Q==ohjNvC8WpNa44LlT';
+    var apiUrl = 'https://api.api-ninjas.com/v1/dogs?' + trait;
+
+    console.log("url is:" + apiUrl);
+
+    //from Dogs API Documentation
+    $.ajax({
+        method: 'GET',
+        url: apiUrl,
+        headers: { 'X-Api-Key': apiKey },
+        contentType: 'application/json',
+        success: function (data) {
+            console.log("here is the data from Dogs API");
+            console.log(data);
+
+            result = data;
+
+            //need to take the api results dog names and check availbility of those names within 
+            //our dog database. Then if dog is available, display the infomation thats in the 
+            //database for the dog
+
+            //get the dog names from the API response
+            const dogNames = data.map(dog => dog.name);
+            console.log("dogNames: " + dogNames);
+
+            const dogContainer = document.getElementById('dogInfoContainer');
+            while (dogContainer.firstChild) {
+                dogContainer.removeChild(dogContainer.firstChild);
+            }
+
+            //sends dog names to availability.php to check availability
+            sendToAvailabilityPHP(dogNames);
+
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+    });
+}
+
+function sendToAvailabilityPHP(dogNames) {
+    $.ajax({
+        method: 'POST',
+        url: 'availability.php',
+        data: { dogNames: JSON.stringify(dogNames) },
+        success: function (availableDogs) {
+            console.log("availableDogs: ", availableDogs);
+
+            //FIX!!
+            if (availableDogs !== null) {
+                //filter dogs from the result array whose breed matches the available dogs
+                const dogsFromAPI = result.filter(dog => {
+                    const apiBreedLowerCase = dog.name.toLowerCase();
+                    //should check if any available breed is a substring of the API breed but it doesnt worl!!
+                    return availableDogs.some(availableBreed => typeof availableBreed === 'string' && apiBreedLowerCase.includes(availableBreed.toLowerCase()));
+                });
+
+                console.log("dogsFromAPI: ", dogsFromAPI);
+
+                //updates dog info
+                for (var i = 0; i < availableDogs.length; i++) {
+                    updateDogInfo(availableDogs[i]);
+                }
+            } else {
+                console.log("Available dogs array is null.");
+                updateDogInfo("nothing");
+            }
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error sending data to availability.php: ', jqXHR.responseText);
+        }
+    });
+}
+
+
+
+
+
+//display the Image (from db), Dog breed name(from API), the dogs unique Name (from db), description(from db), adn then all the other info i have from the API
+
+function updateDogInfo(data) {
+    console.log("updateDogInfo data: ", data);
+
+    // var apiDog;
+
+    // console.log("data.breed: ", data.Breed);
+
+    // for(let i = 0; i < result.length; i++){
+    //     if(result[i].name.includes(data.Breed)){
+    //         console.log("printing api dog : " , apiDog);
+    //         apiDog = result[i];
+    //         // return;
+    //     }else{
+    //         console.log("api dog " + result[i].name);
+    //     }
+    // }
+
+    var dogInfoContainer = document.getElementById('dogInfoContainer');
+
+    if (data.Image) {
+        var dogItem = document.createElement('div');
+
+        var dbBreed = document.createElement('h2');
+        dbBreed.innerText = data.Breed;
+        dogItem.appendChild(dbBreed);
+
+        var dbImg = document.createElement('img');
+        dbImg.src = data.Image;
+        dbImg.alt = "Dog Image";
+        dogItem.appendChild(dbImg);
+        console.log("dbImg", dbImg);
+
+        var dbName = document.createElement('h2');
+        dbName.innerText = "Name: " + data.Name;
+        dogItem.appendChild(dbName);
+
+        var dbDescription = document.createElement('p');
+        dbDescription.innerText = "Description: " + data.Description;
+        dogItem.appendChild(dbDescription);
+
+        dogItem.innerHTML += '<hr>';
+
+        dogInfoContainer.appendChild(dogItem);
+
+    } else {
+        //no dogs are available message
+        var noDogsMessage = document.createElement('p');
+        noDogsMessage.innerText = "No available dogs";
+        dogInfoContainer.appendChild(noDogsMessage);
+
         console.log("No available dogs");
     }
 
-        console.log("matched breeds are " + matchedBreeds)
+    // if (Array.isArray(data) && data.length > 0) {
+    //     // Display dog info
+    //     data.forEach(function (dog) {
+    //         var dogItem = document.createElement('div');
+    //         dogItem.className = 'dogItem';
 
-    }
+    //         var dogName = document.createElement('h2');
+    //         dogName.innerText = dog.name;
+    //         dogItem.appendChild(dogName);
+            
+    //         var description = document.createElement('p');
+    //         description.innerText = "Description: " + dog.Description;
+    //         dogItem.append(description);
+
+    //         console.log()
+    //         //display dog image
+    //         var dogImg = document.createElement('img');
+    //         dogImg.src = dog.image_link;
+    //         dogImg.alt = 'Dog Image';
+    //         dogItem.append(dogImg);
+
+
+    //         //dogItem.append("Scale:")
+
+    //         var good_with_children = document.createElement('ul');
+    //         good_with_children.innerText = "Good with children: " + dog.good_with_children;
+    //         // console.log("good w children " + dog.good_with_children);
+    //         dogItem.append(good_with_children);
+
+
+    //         var good_with_other_dogs = document.createElement('ul');
+    //         good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
+    //         // console.log("good w dogs " + dog.good_with_other_dogs);
+    //         dogItem.append(good_with_other_dogs);
+
+
+    //         var grooming = document.createElement('ul');
+    //         grooming.innerText = "Grooming: " + dog.grooming;
+    //         // console.log("grooming " + dog.grooming);
+    //         dogItem.append(grooming);
+
+    //         var drooling = document.createElement('ul');
+    //         drooling.innerText = "Drooling: " + dog.drooling;
+    //         // console.log("drooling " + dog.drooling);
+    //         dogItem.append(drooling);
+
+    //         var coat_length = document.createElement('ul');
+    //         coat_length.innerText = "Coat length: " + dog.coat_length;
+    //         // console.log("coat_length " + dog.coat_length);
+    //         dogItem.append(coat_length);
+
+    //         var good_with_strangers = document.createElement('ul');
+    //         good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
+    //         // console.log("good_with_strangers " + dog.good_with_strangers);
+    //         dogItem.append(good_with_strangers);
+
+    //         var playfulness = document.createElement('ul');
+    //         playfulness.innerText = "Playfulness: " + dog.playfulness;
+    //         // console.log("playfulness " + dog.playfulness);
+    //         dogItem.append(playfulness);
+
+    //         var lifeExpectancy = document.createElement('ul');
+    //         var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
+    //         lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
+    //         // console.log("avg life expectancy " + avgLifeExpectancy);
+    //         dogItem.append(lifeExpectancy);
+
+    //         var height = document.createElement('ul');
+    //         var avgHeight = ((dog.min_height_male) + (dog.min_height_female) + (dog.max_height_male) + (dog.max_height_female))/4;
+    //         height.innerText = "Average Height : " + avgHeight + " inches";
+    //         // console.log("avg height " + avgHeight);
+    //         dogItem.append(height);
+
+
+    //         var weight = document.createElement('ul');
+    //         var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
+    //         weight.innerText = "Average Weight : " + avgWeight + " pounds";
+    //         // console.log("avg weight " + avgWeight);
+    //         dogItem.append(weight);
+            
+    //         dogItem.innerHTML += '<hr>';
+
+
+    //         matchedBreeds.push(dog.name);
+
+    //         //add dog card to dogInfoContainer
+    //         dogInfoContainer.appendChild(dogItem);
+    //     });
+    // } else {
+    //     // Display a message when no dogs are available
+    //     var noDogsMessage = document.createElement('p');
+    //     noDogsMessage.innerText = "No available dogs";
+    //     dogInfoContainer.appendChild(noDogsMessage);
+
+    //     console.log("No available dogs");
+    // }
+
+    console.log("matched breeds are " + matchedBreeds);
+}
 
 </script>
-
-
-
 </html>
