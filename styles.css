@@ -45,7 +45,17 @@ footer{
     padding: 15px auto; 
     text-align: center; 
     max-width: 100%;
-    footer: 15px 0px 15px 0px;
+    padding: 15px 0px 15px 0px;
+}
+footer a{
+    text-decoration: none; 
+    color: white;
+    margin: 15px;
+    font-size: 20px;
+}
+
+footer a:hover{
+    text-decoration: underline;
 }
 
 
@@ -291,7 +301,7 @@ table img {
       .show {display:block;}
     
      .slideshow-container {
-         margin: 20px;
+         margin: 70px 20px 20px 20px;
     }
 
 @media (max-width: 580px){
