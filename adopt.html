@@ -77,16 +77,11 @@
             display: none;
             font-size: 18px;
             text-align: center;
-            padding: 10px;
+            padding: 5px 1px;
         }
 
-        .processForm label{
+        .processForm label,input{
             margin: 5px 0;
-        }
-        .processForm input{
-            margin: 5px 0;
-            width: 100%;
-            padding: 10px;
         }
         .processForm button{
             background-color: rgb(27, 122, 255);
@@ -140,7 +135,7 @@
      </script>
 
     <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
+        <button onclick="myFunction()" onmouseover="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
         <div id="myDropdown" class="dropdown-content">
             <a href="#"> &nbsp;</a>
             <a href="index.html"> Home</a>
@@ -155,16 +150,12 @@
 
     <div class="adoption-container">
         <h1>Find your perfect dog!</h1>
-        <p>Select the most important qualities you wish to have in your dog</p>
+        <p>Select the most important qualities you wish to have:</p>
         
         <!-- onsubmit="return validateANDfetch()" -->
         <form action="#" method="POST">
             <table>
 
-                <tr>
-                    <td><label for="shedding">Limited Shedding:</label></td>
-                    <td><input type="checkbox" id="shedding" name="shedding"></td>
-                </tr>
                 <tr>
                     <td><label for="protectiveness">Protectiveness:</label></td>
                     <td><input type="checkbox" id="protectiveness" name="protectiveness"></td>
@@ -180,7 +171,11 @@
                 <tr>
                     <td><label for="barking">Barking:</label></td>
                     <td><input type="checkbox" id="barking" name="barking"></td>
-                </tr>                    
+                </tr> 
+                <tr>
+                    <td><label for="shedding">Limited Shedding:</label></td>
+                    <td><input type="checkbox" id="shedding" name="shedding"></td>
+                </tr>                   
                 <tr>
                     <td colspan="2">
                         <button type="submit" onclick="validateANDfetch()">Find my perfect dog!</button>
@@ -198,7 +193,7 @@
         </div>
         
         <div class="processForm" id="processForm">
-            <form method="get" action="processform.php" target="_blank">
+            <form method="get" action="processform.php">
                 <label for="dogname">Dog name:</label><br>
                 <input type="text" id="dogname" name="dogname" value=""><br>
                 <label for="firstname">First name:</label><br>
