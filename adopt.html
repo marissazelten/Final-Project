@@ -190,7 +190,7 @@
             <!-- availble dogs info goes here -->
         </div>
         
-        <div class="proccessForm">
+        <div class="proccessForm" id="processForm">
             <form method="get" action="processform.php" target="_blank">
                 <label for="dogname">Dog name:</label><br>
                 <input type="text" id="dogname" name="dogname" value=""><br>
@@ -245,11 +245,11 @@ function validateANDfetch() {
         }
     });
 
-    if (checkedBoxes.length > 0) {
+    if (checkedBoxes.length > 0){
         fetchDogInfo(checkedBoxes.join('&'));
-        var processForm = document.querySelector(".processForm");
-        processForm.style.display = "block"
-    } else {
+        var processForm = document.getElementById(".processForm");
+        processForm.style.display = "block";
+    }else{
         alert('Please select at least one characteristic.');
     }
 
