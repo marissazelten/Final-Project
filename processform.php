@@ -5,7 +5,7 @@
 <body>
 
 <style>
-    background-color: rgb(234, 82, 211);
+   echo "<body style='background-color:pink'>";
 </style>
     
 <?php
