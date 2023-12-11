@@ -105,9 +105,10 @@
      </script>
 
     <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
+        <button onclick="myFunction()" onmouseover="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
         <div id="myDropdown" class="dropdown-content">
             <a href="#"> &nbsp;</a>
+            <a href="index.html"> Home</a>
             <a href="About.html"> About Us</a>
             <a href="reviews.html"> Testimonials</a>
             <a href="adopt.html"> Adopt</a>
@@ -124,10 +125,10 @@
     <?php
   
   //establish connection info
-$server = "localhost";// your server
-$userid = "ugjneis3axmvm"; // your user id
-$pw = "d7jvh5nhng87"; // your pw
-$db= "dbjmdhkmuriqnk"; // your database
+$server = "localhost";
+$userid = "u78oi0lkmq59t";
+$pw = "dogdatabase1";
+$db = "dbklmqdle5ki76";
       
 // Create connection
 $conn = new mysqli($server, $userid, $pw);
@@ -178,7 +179,7 @@ if ($result->num_rows > 0)
   <input type="text" id="lname" name="lname"><br>
   <label for="email">Email:</label><br>
   <input type="text" id="email" name="email"><br><br>
-  <label for="specialinst">Special Instructions:</label>
+  <label for="specialinst">Special Instructions:</label></br>
   <textarea id="specialinst" name="specialinst" rows="4" cols="50"></textarea>
   </br>
   </br>
