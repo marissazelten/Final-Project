@@ -247,7 +247,7 @@ function validateANDfetch() {
 
     if (checkedBoxes.length > 0){
         fetchDogInfo(checkedBoxes.join('&'));
-        var processForm = document.getElementById(".processForm");
+        var processForm = document.getElementById("processForm");
         processForm.style.display = "block";
     }else{
         alert('Please select at least one characteristic.');
@@ -363,6 +363,9 @@ function updateDogInfo(data) {
     }
 
     console.log("matched breeds are " + matchedBreeds);
+
+    // var processForm = document.getElementById("processForm");
+    // processForm.style.display = "block";
 }
 
 </script>
