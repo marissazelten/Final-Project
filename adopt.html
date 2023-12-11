@@ -74,10 +74,23 @@
             padding: 5px 1px;
         }
         .processForm{
+            display: none;
             font-size: 18px;
             align-items: center;
             justify-content: center;
             padding: 5px 1px;
+        }
+
+        .processForm button{
+            background-color: rgb(27, 122, 255);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border-style: none;
+        }
+        .processForm button:hover{
+            background-color: rgb(0, 74, 171);
+            text-decoration: underline;
         }
         #dogInfoContainer:empty{
             display: none;
@@ -142,23 +155,23 @@
             <table>
 
                 <tr>
-                    <td><label for="shedding">shedding:</label></td>
+                    <td><label for="shedding">Shedding:</label></td>
                     <td><input type="checkbox" id="shedding" name="shedding"></td>
                 </tr>
                 <tr>
-                    <td><label for="protectiveness">protectiveness:</label></td>
+                    <td><label for="protectiveness">Protectiveness:</label></td>
                     <td><input type="checkbox" id="protectiveness" name="protectiveness"></td>
                 </tr>        
                 <tr>
-                    <td><label for="trainability">trainability:</label></td>
+                    <td><label for="trainability">Trainability:</label></td>
                     <td><input type="checkbox" id="trainability" name="trainability"></td>
                 </tr>     
                 <tr>
-                    <td><label for="energy">energy:</label></td>
+                    <td><label for="energy">Energy:</label></td>
                     <td><input type="checkbox" id="energy" name="energy"></td>
                 </tr>  
                 <tr>
-                    <td><label for="barking">barking:</label></td>
+                    <td><label for="barking">Barking:</label></td>
                     <td><input type="checkbox" id="barking" name="barking"></td>
                 </tr>                    
                 <tr>
@@ -192,7 +205,7 @@
                 <label for="adoptionreason">Why you want to adopt this dog:</label><br>
                 <input type="text" id="adoptionreason" name="adoptionreason" value=""><br>
     
-                <input type="submit" value="Submit">
+                <button type="submit">Submit</button>
             </form> 
         </div>
 
@@ -234,9 +247,12 @@ function validateANDfetch() {
 
     if (checkedBoxes.length > 0) {
         fetchDogInfo(checkedBoxes.join('&'));
+        var processForm = document.querySelector(".processForm");
+        processForm.style.display = "block"
     } else {
         alert('Please select at least one characteristic.');
     }
+
 }
 
 function fetchDogInfo(trait) {
@@ -288,19 +304,9 @@ function sendToAvailabilityPHP(dogNames) {
         success: function (availableDogs) {
             console.log("availableDogs: ", availableDogs);
 
-            //FIX!!
-            if (availableDogs !== null) {
-                //filter dogs from the result array whose breed matches the available dogs
-                const dogsFromAPI = result.filter(dog => {
-                    const apiBreedLowerCase = dog.name.toLowerCase();
-                    //should check if any available breed is a substring of the API breed but it doesnt worl!!
-                    return availableDogs.some(availableBreed => typeof availableBreed === 'string' && apiBreedLowerCase.includes(availableBreed.toLowerCase()));
-                });
-
-                console.log("dogsFromAPI: ", dogsFromAPI);
-
+            if (availableDogs !== null){
                 //updates dog info
-                for (var i = 0; i < availableDogs.length; i++) {
+                for(var i = 0; i < availableDogs.length; i++){
                     updateDogInfo(availableDogs[i]);
                 }
             } else {
@@ -315,27 +321,10 @@ function sendToAvailabilityPHP(dogNames) {
 }
 
 
-
-
-
 //display the Image (from db), Dog breed name(from API), the dogs unique Name (from db), description(from db), adn then all the other info i have from the API
 
 function updateDogInfo(data) {
     console.log("updateDogInfo data: ", data);
-
-    // var apiDog;
-
-    // console.log("data.breed: ", data.Breed);
-
-    // for(let i = 0; i < result.length; i++){
-    //     if(result[i].name.includes(data.Breed)){
-    //         console.log("printing api dog : " , apiDog);
-    //         apiDog = result[i];
-    //         // return;
-    //     }else{
-    //         console.log("api dog " + result[i].name);
-    //     }
-    // }
 
     var dogInfoContainer = document.getElementById('dogInfoContainer');
 
@@ -372,103 +361,6 @@ function updateDogInfo(data) {
 
         console.log("No available dogs");
     }
-
-    // if (Array.isArray(data) && data.length > 0) {
-    //     // Display dog info
-    //     data.forEach(function (dog) {
-    //         var dogItem = document.createElement('div');
-    //         dogItem.className = 'dogItem';
-
-    //         var dogName = document.createElement('h2');
-    //         dogName.innerText = dog.name;
-    //         dogItem.appendChild(dogName);
-            
-    //         var description = document.createElement('p');
-    //         description.innerText = "Description: " + dog.Description;
-    //         dogItem.append(description);
-
-    //         console.log()
-    //         //display dog image
-    //         var dogImg = document.createElement('img');
-    //         dogImg.src = dog.image_link;
-    //         dogImg.alt = 'Dog Image';
-    //         dogItem.append(dogImg);
-
-
-    //         //dogItem.append("Scale:")
-
-    //         var good_with_children = document.createElement('ul');
-    //         good_with_children.innerText = "Good with children: " + dog.good_with_children;
-    //         // console.log("good w children " + dog.good_with_children);
-    //         dogItem.append(good_with_children);
-
-
-    //         var good_with_other_dogs = document.createElement('ul');
-    //         good_with_other_dogs.innerText = "Good with other dogs: " + dog.good_with_other_dogs
-    //         // console.log("good w dogs " + dog.good_with_other_dogs);
-    //         dogItem.append(good_with_other_dogs);
-
-
-    //         var grooming = document.createElement('ul');
-    //         grooming.innerText = "Grooming: " + dog.grooming;
-    //         // console.log("grooming " + dog.grooming);
-    //         dogItem.append(grooming);
-
-    //         var drooling = document.createElement('ul');
-    //         drooling.innerText = "Drooling: " + dog.drooling;
-    //         // console.log("drooling " + dog.drooling);
-    //         dogItem.append(drooling);
-
-    //         var coat_length = document.createElement('ul');
-    //         coat_length.innerText = "Coat length: " + dog.coat_length;
-    //         // console.log("coat_length " + dog.coat_length);
-    //         dogItem.append(coat_length);
-
-    //         var good_with_strangers = document.createElement('ul');
-    //         good_with_strangers.innerText = "Good with strangers: " + dog.good_with_strangers;
-    //         // console.log("good_with_strangers " + dog.good_with_strangers);
-    //         dogItem.append(good_with_strangers);
-
-    //         var playfulness = document.createElement('ul');
-    //         playfulness.innerText = "Playfulness: " + dog.playfulness;
-    //         // console.log("playfulness " + dog.playfulness);
-    //         dogItem.append(playfulness);
-
-    //         var lifeExpectancy = document.createElement('ul');
-    //         var avgLifeExpectancy = ((dog.min_life_expectancy) + (dog.max_life_expectancy))/2;
-    //         lifeExpectancy.innerText = "Average Life Expectancy: " + avgLifeExpectancy + " years";
-    //         // console.log("avg life expectancy " + avgLifeExpectancy);
-    //         dogItem.append(lifeExpectancy);
-
-    //         var height = document.createElement('ul');
-    //         var avgHeight = ((dog.min_height_male) + (dog.min_height_female) + (dog.max_height_male) + (dog.max_height_female))/4;
-    //         height.innerText = "Average Height : " + avgHeight + " inches";
-    //         // console.log("avg height " + avgHeight);
-    //         dogItem.append(height);
-
-
-    //         var weight = document.createElement('ul');
-    //         var avgWeight = ((dog.max_weight_male) + (dog.max_weight_female) + (dog.min_weight_male) + (dog.min_weight_female))/4;
-    //         weight.innerText = "Average Weight : " + avgWeight + " pounds";
-    //         // console.log("avg weight " + avgWeight);
-    //         dogItem.append(weight);
-            
-    //         dogItem.innerHTML += '<hr>';
-
-
-    //         matchedBreeds.push(dog.name);
-
-    //         //add dog card to dogInfoContainer
-    //         dogInfoContainer.appendChild(dogItem);
-    //     });
-    // } else {
-    //     // Display a message when no dogs are available
-    //     var noDogsMessage = document.createElement('p');
-    //     noDogsMessage.innerText = "No available dogs";
-    //     dogInfoContainer.appendChild(noDogsMessage);
-
-    //     console.log("No available dogs");
-    // }
 
     console.log("matched breeds are " + matchedBreeds);
 }
