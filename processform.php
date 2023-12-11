@@ -117,17 +117,15 @@ $result = $conn->query($sql);
     $fname = $_GET['firstname'];
 
 
-
+    $sql = "UPDATE Dogs SET Status='unavailable' WHERE Name='$Name'";
+    if ($connection->query($sql) === TRUE) {
+        echo "<p>Thanks for adopting: " . $Name . "</p>";
+    }
 echo "<h1>Thank you, " . $fname  ." for starting the adoption process!</h1>";
 echo "<p>We're excited to hear about your new adventure!</p>";
 echo "<p>You adopted: ". $Name ."<p>" ;
 echo "<p>". $Name ." Is so excited to meet you!<p>" ;
-    $sql = "UPDATE Dogs SET Status='unavailable' WHERE Name='$Name'";
-    if ($connection->query($sql) === TRUE) {
-        echo "<p>Thanks for adopting: " . $Name . "</p>";
-    } else {
-        echo "Error updating record: " . $connection->error;
-    }
+    
 
 //get results
 
@@ -136,7 +134,7 @@ echo "<p>". $Name ." Is so excited to meet you!<p>" ;
   $email = " Hello ". $fname . ", \n Thank you for adopting "  .$Name  . "\n Thanks for making a difference in your new furry friend's life by giving them a furrever home! The adoption agency will be in contact with you shortly to arrange your adoption.\n \n";
   $email = wordwrap($email,70);
   $headers = "From: alibbe01@tufts.edu";
-  $to = $_POST['email'];
+  $to = $_GET['email_address'];
  $success = mail($to, "Your Mutts and Meows Adoption Confirmation", $email, $headers);
 
 
