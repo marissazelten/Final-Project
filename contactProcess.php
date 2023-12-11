@@ -47,6 +47,19 @@
             <a href="store-info.html"> Store Info</a>
         </ul>
     </nav>
+    
+     <div class="dropdown">
+        <button onclick="myFunction()" onmouseover="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#"> &nbsp;</a>
+            <a href="index.html"> Home</a>
+            <a href="About.html"> About Us</a>
+            <a href="reviews.html"> Testimonials</a>
+            <a href="adopt.html"> Adopt</a>
+            <a href="products.php"> Products</a>
+            <a href="store-info.html"> Store Info</a>
+        </div>
+    </div>
 
     <div class="contact-container">
     <h1>Thank You for contacting Mutts & Meows!</h1>
