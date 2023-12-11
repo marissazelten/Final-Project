@@ -68,69 +68,36 @@
 </br>
 </br>
 
-<script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-</script>
+<?php
 
- </br>
- <div class="paragraph">
+$servername = "localhost";
+$username = "ugttp8qi3togc";
+$password = "dogdatabase1";
+$dbname = "dbklmqdle5ki76";
 
-      <?php
-    
-  
-  //establish connection info
-$server = "localhost";
-$userid = "u78oi0lkmq59t";
-$pw = "dogdatabase1";
-$db = "dbklmqdle5ki76";
-      
 // Create connection
-$conn = new mysqli($server, $userid, $pw);
+$connection = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
 }
-//echo "Connected successful </br>";
 
-//select the database
-$conn->select_db($db);
 
-$sql = "SELECT * FROM Dogs";
-$result = $conn->query($sql);
+//if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $Name = $_GET['dogname'];
     $email_address = $_GET['email_address'];
     $fname = $_GET['firstname'];
-
-
-    $sql = "UPDATE Dogs SET Status='unavailable' WHERE Name='$Name'";
-    if ($connection->query($sql) === TRUE) {
-        echo "<p>Thanks for adopting: " . $Name . "</p>";
-    }
 echo "<h1>Thank you, " . $fname  ." for starting the adoption process!</h1>";
 echo "<p>We're excited to hear about your new adventure!</p>";
 echo "<p>You adopted: ". $Name ."<p>" ;
 echo "<p>". $Name ." Is so excited to meet you!<p>" ;
-    
-
-//get results
-
-
- 
+    $sql = "UPDATE Dogs SET Status='unavailable' WHERE Name='$Name'";
+    if ($connection->query($sql) === TRUE) {
+       // echo "<p>Thanks for adopting: " . $Name . "</p>";
+    } else {
+        echo "Error updating record: " . $connection->error;
+    }
+//}
   $email = " Hello ". $fname . ", \n Thank you for adopting "  .$Name  . "\n Thanks for making a difference in your new furry friend's life by giving them a furrever home! The adoption agency will be in contact with you shortly to arrange your adoption.\n \n";
   $email = wordwrap($email,70);
   $headers = "From: alibbe01@tufts.edu";
@@ -138,16 +105,9 @@ echo "<p>". $Name ." Is so excited to meet you!<p>" ;
  $success = mail($to, "Your Mutts and Meows Adoption Confirmation", $email, $headers);
 
 
-//close the connection	
-$conn->close();
+$connection->close();
 
-  ?>
-</div>
-</br> 
-</br> 
-    <footer>
-          <p>&copy; 2023 Mutts & Meows</p>
-          <a href="contact-us.html"> Contact Us</a>
-        </br>
-    </footer>
+?>
+
 </body>
+</html>
