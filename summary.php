@@ -52,7 +52,7 @@
     </ul>
 </nav>
 <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
+        <button onclick="myFunction()" onmouseover="myFunction()" class="dropbtn"> <i class="fa fa-bars" style = "margin-left: 15px; height: fit-content;"></i></button>
         <div id="myDropdown" class="dropdown-content">
             <a href="#"> &nbsp;</a>
             <a href="index.html"> Home</a>
@@ -93,10 +93,10 @@
       <?php
   
   //establish connection info
-  $server = "localhost";// your server
-  $userid = "ugjneis3axmvm"; // your user id
-  $pw = "d7jvh5nhng87"; // your pw
-  $db= "dbjmdhkmuriqnk"; // your database
+$server = "localhost";
+$userid = "u78oi0lkmq59t";
+$pw = "dogdatabase1";
+$db = "dbklmqdle5ki76";
       
 // Create connection
 $conn = new mysqli($server, $userid, $pw);
