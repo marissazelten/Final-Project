@@ -4,6 +4,9 @@
 </head>
 <body>
 
+<style>
+    background-color: rgb(234, 82, 211);
+</style>
 <?php
 
 $servername = "localhost";
