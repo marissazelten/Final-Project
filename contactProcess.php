@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
+    <style>
+        .contact-container{
+            max-width: 450px;
+            margin: 125px auto;
+            padding: 20px;
+            background-color: pink;
+            border-radius: 10px;
+        }
+    </style>
+
 <body>
     <nav>
         <ul>
@@ -20,6 +30,7 @@
         </ul>
     </nav>
 
+    <div class="contact-container">
     <h1>Thank You for contacting Mutts & Meows!</h1>
     <p>We appreciate your message! We'll get back to you as soon as possible.</p>
 
@@ -38,6 +49,7 @@
         echo "<p><strong>Subject: </strong>$subject</p>";
         echo "<p><strong>Message: </strong>$message</p>";  
     ?>
+    </div>
 
     <footer>
           <p>&copy; 2023 Mutts & Meows</p>
