@@ -21,9 +21,9 @@
     </nav>
 
     <h1>Thank You for contacting Mutts & Meows!</h1>
-    <p>We appreciate your message. We'll get back to you as soon as possible.</p>
+    <p>We appreciate your message! We'll get back to you as soon as possible.</p>
 
-    <h1>Contact Form Submission Details:</h1>
+    <p>Contact Form Submission Details:</p>
 
     <?php
         $firstName = $_POST["firstName"];
@@ -32,11 +32,11 @@
         $subject = $_POST["subject"];
         $message = $_POST["message"];
 
-        echo "<p><strong>First Name:</strong>$firstName</p>";
-        echo "<p><strong>Last Name:</strong>$lastName</p>";
-        echo "<p><strong>Email:</strong>$email</p>";
-        echo "<p><strong>Subject:</strong>$subject</p>";
-        echo "<p><strong>Message:</strong>$message</p>";  
+        echo "<p><strong>First Name: </strong>$firstName</p>";
+        echo "<p><strong>Last Name: </strong>$lastName</p>";
+        echo "<p><strong>Email: </strong>$email</p>";
+        echo "<p><strong>Subject: </strong>$subject</p>";
+        echo "<p><strong>Message: </strong>$message</p>";  
     ?>
 
     <footer>
@@ -44,6 +44,6 @@
           <a href="contact-us.html"> Contact Us</a>
           </br>
     </footer>
-    
+
 </body>
 </html>
