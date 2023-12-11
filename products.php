@@ -160,7 +160,7 @@ if ($result->num_rows > 0)
 //puts SQL in a form
 { ?> 
 <form action="summary.php" method="post" onsubmit="return validateForm()">
-<span style="margin:auto; justify-content: center">
+<div style="flex-wrap: wrap; justify-content: center; display: flex">
  <?php 
   while($row = $result->fetch_array()) 
   { 
@@ -170,7 +170,7 @@ if ($result->num_rows > 0)
     
   }
   ?>  
-  </span>
+  </div>
   </br>
   <div style='width: 100%; margin: 15px''>
   <label for="fname">First name:</label><br>
